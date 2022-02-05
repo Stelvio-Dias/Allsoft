@@ -34,3 +34,15 @@ Route::get('pesquisa', 'PesquisaController@index')->name('pesquisa');
 Route::get('login', 'Auth\LoginController@index')->name('login');
 // Cadastro
 Route::get('cadastro', 'Auth\CadastroController@index')->name('cadastro');
+
+
+
+// Dashboard
+
+Route::prefix('dashboard')->group(function() {
+
+    // Rota home
+    Route::redirect('/', 'home');
+    Route::get('home', 'Dashboard\HomeController@index')->name('dashboard.home');
+
+});

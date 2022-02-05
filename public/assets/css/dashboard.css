@@ -131,3 +131,18 @@ table .view-img {
 table tbody td {
     vertical-align: middle;
 }
+
+
+/* Modal */
+.modal form label p {
+    font-size: 16px;
+    font-family: 'poppins-medium';
+    margin-bottom: 5px;
+}
+.modal form  label textarea {
+    height: 140px;
+    resize: none;
+}
+.modal form .icon {
+    color: #212529;
+}

@@ -81,7 +81,9 @@
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href=""
+                data-bs-toggle="modal"
+                data-bs-target="#cadastrar-desaparecido">
                     <i class="fas fa-user-plus icon"></i>
                     Desaparecidos
                 </a>
@@ -90,6 +92,12 @@
                 <a href="">
                     <i class="fas fa-cogs icon"></i>
                     Configurações
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <i class="fas fa-sign-out-alt icon"></i>
+                    Terminar Sessão
                 </a>
             </li>
         </ul>
@@ -126,6 +134,10 @@
 
 {{-- Component Pedido --}}
 @component('components.pedido.pedido')
+    
+@endcomponent
+
+@component('components.desaparecido.cadastrar-desaparecido')
     
 @endcomponent
 

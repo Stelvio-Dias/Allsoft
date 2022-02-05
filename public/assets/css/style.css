@@ -14,6 +14,15 @@ select {
     font-family: 'poppins-regular';
 }
 
+/* Erros */
+.erros {
+    position: absolute;
+    right: 10px;
+    top: 80px;
+}
+.erros .alert {
+    width: 400px;
+}
 
 
 /* Header */

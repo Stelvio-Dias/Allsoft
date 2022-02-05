@@ -19,6 +19,15 @@
 </head>
 <body> 
 
+<div class="erros">
+
+    <div class="alert alert-danger alert-dismissible">
+        <strong>Erro: </strong>Ocorreu um erro
+        <button type="button" class="bt btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
+</div>
+
 <main>
     @yield('body')
 </main>

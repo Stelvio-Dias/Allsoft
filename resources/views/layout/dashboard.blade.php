@@ -89,13 +89,17 @@
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href=""
+                data-bs-toggle="modal"
+                data-bs-target="#usuario-configuracao">
                     <i class="fas fa-cogs icon"></i>
                     Configurações
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href=""
+                data-bs-toggle="modal"
+                data-bs-target="#terminar-sessao">
                     <i class="fas fa-sign-out-alt icon"></i>
                     Terminar Sessão
                 </a>
@@ -137,7 +141,17 @@
     
 @endcomponent
 
+{{-- Component Cadastrar desaparecido --}}
 @component('components.desaparecido.cadastrar-desaparecido')
+    
+@endcomponent
+
+{{-- Component Usuario Configuração --}}
+@component('components.usuario.usuario-configuracao')
+    
+@endcomponent
+
+@component('components.dashboard.terminar-sesssao')
     
 @endcomponent
 

@@ -134,11 +134,21 @@
                     <td>Paul Rovia</td>
                     <td>2022/01/01</td>
                     <td>Benfica</td>
+                    {{-- Editar --}}
                     <td>
-                        <i class="fas fa-redo-alt icon"></icon>
+                        <a href=""
+                        data-bs-toggle="modal"
+                        data-bs-target="#editar-desaparecido">
+                            <i class="fas fa-redo-alt icon"></i>
+                        </a>
                     </td>
+                    {{-- Deletar --}}
                     <td>
-                        <i class="fas fa-times icon"></icon>
+                        <a href=""
+                        data-bs-toggle="modal"
+                        data-bs-target="#deletar-desaparecido">
+                            <i class="fas fa-times icon"></i>
+                        </a>
                     </td>
                 </tr>
             </tbody>
@@ -149,8 +159,19 @@
 
 @endsection
 
+{{-- Component Exibir imagem --}}
 @component('components.desaparecido.exibir-imagem')
 
+@endcomponent
+
+{{-- Component Editar desaparecido --}}
+@component('components.desaparecido.editar-desaparecido')
+    
+@endcomponent
+
+{{-- Component Deletar Desaparecido --}}
+@component('components.desaparecido.deletar-desaparecido')
+    
 @endcomponent
 
 

@@ -1,0 +1,132 @@
+@import url('font.css');
+
+body {
+    font-family: 'poppins-regular';
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+input,
+button,
+textarea,
+select {
+    font-size: 16px;
+    font-family: 'poppins-regular';
+}
+
+/* Erros */
+.erros {
+    position: absolute;
+    right: 10px;
+    top: 80px;
+}
+.erros .alert {
+    width: 400px;
+}
+
+h2.title {
+    font-family: 'poppins-bold';
+    color: #000;
+    font-size: 24px;
+}
+
+/* Header */
+#header {
+    position: relative;
+    height: 60px;
+}
+#header button {
+    background-color: transparent;
+    color: #fff;
+    font-size: 25px;
+}
+#header h1 {
+    font-family: 'poppins-medium';
+    font-size: 25px;
+    text-transform: capitalize;
+    margin-bottom: 0;
+}
+#header h3 {
+    font-family: 'poppins-medium';
+    font-size: 16px;
+    margin-bottom: 0;
+}
+
+/* Offcanvas */
+.offcanvas .offcanvas-header a {
+    text-decoration: none;
+}
+.offcanvas .offcanvas-header a h2 {
+    color: #FFF;
+    font-size: 25px;
+    font-family: 'poppins-bold';
+}
+.offcanvas .offcanvas-body {
+    position: relative;
+    padding: 0;
+}
+.offcanvas .offcanvas-body ul {
+    margin-top: 40px;
+    padding-left: 0;
+}
+.offcanvas .offcanvas-body ul li:hover {
+    background-color: #FFF;
+}
+.offcanvas .offcanvas-body ul li a {
+    display: block;
+    color: #FFF;
+    font-size: 16px;
+    font-family: 'poppins-regular';
+    text-decoration: none;
+    text-transform: capitalize;
+    padding: 15px 1rem;
+}
+.offcanvas .offcanvas-body ul li:hover a {
+    color: #000;
+}
+.offcanvas .offcanvas-body ul li a .icon {
+    margin-right: 8px;
+    font-size: 18px;
+}
+.offcanvas .offcanvas-body h2 {
+    color: #FFF;
+    font-size: 16px;
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+}
+
+
+/* Dados gerais */
+.card h2 {
+    font-family: 'poppins-medium';
+    font-size: 20px;
+}
+
+.card h2 + span {
+    font-family: 'poppins-regular';
+    font-size: 22px;
+}
+
+.card h3 {
+    font-family: 'poppins-medium';
+    font-size: 16px;
+}
+
+.card h3 > span {
+    font-family: 'poppins-regular';
+    font-size: 18px;
+}
+
+table .view-img {
+    width: 100px;
+    height: auto;
+
+    object-fit: cover;
+    object-position: center;
+
+    cursor: pointer;
+}
+table tbody td {
+    vertical-align: middle;
+}

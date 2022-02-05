@@ -73,7 +73,9 @@
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href=""
+                data-bs-toggle="modal"
+                data-bs-target="#pedidos">
                     <i class="fas fa-hand-holding-heart icon"></i>
                     Pedidos (03)
                 </a>
@@ -121,6 +123,12 @@
 @component('components.comuna.comuna')
     
 @endcomponent
+
+{{-- Component Pedido --}}
+@component('components.pedido.pedido')
+    
+@endcomponent
+
     
 <script src="{{ url("assets/lib/bootstrap/js/bootstrap.min.js") }}"></script>
 <script src="{{ url("assets/lib/fontawesome/js/all.min.js") }}"></script>

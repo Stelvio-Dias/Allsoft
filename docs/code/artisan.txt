@@ -1,0 +1,21 @@
+php artisan serve
+Hospeda o site numa porta especial padrão: 127.0.0.1:8000
+
+
+php artisan migrate
+Roda todas as migrations
+
+php artisan migrate:fresh
+Apaga todas as tabelas do banco de dados e cria novamente as tabelas
+
+
+php artisan make:migration NomeMigration
+Cria uma migration
+
+
+php artisan make:model Classe
+Cria um Model
+
+
+php artisan make:controller ClasseController
+Cria um controller

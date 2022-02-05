@@ -1,0 +1,17 @@
+<div class="accordion" id="parentId">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headerId">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#acaoId" aria-expanded="true" aria-controls="collapseOne">
+            Quem Somos Nós?
+        </button>
+        </h2>
+        <div id="acaoId" class="accordion-collapse collapse show" aria-labelledby="headerId" data-bs-parent="#parentId">
+        <div class="accordion-body">
+            <strong>Quem somos nós.</strong> 
+            <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit maiores necessitatibus aliquid repudiandae quas praesentium quia eum possimus at nostrum, inventore, amet cum ex odio hic! Saepe repudiandae dolor laborum.
+            </p>
+        </div>
+        </div>
+    </div>
+</div>

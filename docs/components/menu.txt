@@ -1,0 +1,30 @@
+<header id="header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ route('home') }}">{{ env('APP_NAME') }}</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="text-white fas fa-bars icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="">link 1</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-lg-4">
+                    <form action="">
+                        <div class="row">
+                            <div class="col-10 pe-0">
+                                <input type="search" name="campo">
+                            </div>
+                            <div class="col-2 ps-0">
+                                <button type="submit">
+                                    <i class="fas fa-search icon"></i>
+                                </button>
+                            </div>
+                    </form>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

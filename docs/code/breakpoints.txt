@@ -1,0 +1,13 @@
+padrao
+
+sm (small) 
+576px para cima
+
+md (medium)
+768px para cima
+
+lg (large)
+992px para cima
+
+xl (extra large)
+1200px para cima

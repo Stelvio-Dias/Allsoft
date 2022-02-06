@@ -33,6 +33,8 @@ Route::get('pesquisa', 'PesquisaController@index')->name('pesquisa');
 // Login
 Route::get('login', 'Auth\LoginController@index')->name('login');
 Route::post('login-action', 'Auth\LoginController@loginAction')->name('login-action');
+// Terminar sessão
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 
 // Cadastro
@@ -58,6 +60,13 @@ Route::prefix('dashboard')->group(function() {
     //editar comuna
     Route::post('comuna/editar', 'Dashboard\ComunaController@editar')->name('dashboard.comuna.editar');
 
+
+    // Usuarios
+
+    // editar permissão
+    Route::post('user/editar-permissao', 'Dashboard\UserController@editarPermissao')->name('dashboard.user.editar-permissao');
+    // configuração
+    Route::post('user/configuracao', 'Dashboard\UserController@configuracao')->name('dashboard.user.configuracao');
 
 });
 

@@ -32,7 +32,7 @@
 
         <h1>Titulo da pagina</h1>
 
-        <h3>user</h3>
+        <h3>{{Auth::user()->nome}}</h3>
 
 
     </div>
@@ -69,7 +69,7 @@
                 data-bs-toggle="modal"
                 data-bs-target="#editar-permicao">
                     <i class="fas fa-user-shield icon"></i>
-                    Usuarios (02)
+                    Usuarios ({{ count($users) }})
                 </a>
             </li>
             <li>
@@ -135,14 +135,23 @@
     @yield('main')
 </main>
 
-
+{{-- ~xxxxxxxxxxxxx USers xxxxxxxxxxxx --}}
 {{-- Component Editar permissão --}}
 @component('components.usuario.editar-permicao')
+    @slot('users', $users)
+@endcomponent
+{{-- Component Usuario Configuração --}}
+@component('components.usuario.usuario-configuracao')
+    
+@endcomponent
 
+{{-- Component Terminar sessão --}}
+@component('components.usuario.terminar-sesssao')
+    
 @endcomponent
 
 
-{{--       XXXX Comunas XXXX       --}}
+{{--XXXXXXXXXXXXXXXX Comunas XXXXXXXXXXXXXXXXXXXX--}}
 
 {{-- Component Comunas --}}
 @component('components.comuna.comuna')
@@ -172,14 +181,7 @@
     
 @endcomponent
 
-{{-- Component Usuario Configuração --}}
-@component('components.usuario.usuario-configuracao')
-    
-@endcomponent
 
-@component('components.dashboard.terminar-sesssao')
-    
-@endcomponent
 
     
 <script src="{{ url("assets/lib/bootstrap/js/bootstrap.min.js") }}"></script>

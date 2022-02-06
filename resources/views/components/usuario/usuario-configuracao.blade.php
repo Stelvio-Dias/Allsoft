@@ -10,7 +10,9 @@
 
             {{-- Modal Body --}}
             <div class="modal-body">
-                <form action="" method="POST">
+                <form action="{{route('dashboard.user.configuracao')}}" method="POST" id="usuario-configuracao-form">
+                    @csrf
+                    <input type="hidden" name="id" value="{{Auth::user()->id}}">
  
                     {{-- Nome \ Data de Nascimento --}}
                     <div class="row">
@@ -21,7 +23,7 @@
                                 <span class="input-group-text">
                                     <i class="fas fa-user icon"></i>
                                 </span>
-                                <input type="text" name="nome" placeholder="Nome" class="form-control">
+                                <input type="text" name="nome" value="{{ Auth::user()->nome }}" placeholder="Nome" class="form-control">
                             </label>
                         </div>
 
@@ -32,7 +34,7 @@
                                 <span class="input-group-text">
                                     <i class="fas fa-calendar-alt icon"></i>
                                 </span>
-                                <input type="date" name="data_nascimento" placeholder="Data de Nascimento" class="form-control">
+                                <input type="date" name="data_nascimento" value="{{ Auth::user()->data_nascimento }}" placeholder="Data de Nascimento" class="form-control">
                             </label>
                         </div>
                     </div>
@@ -46,7 +48,7 @@
                                 <span class="input-group-text">
                                     <i class="fas fa-envelope icon"></i>
                                 </span>
-                                <input type="email" name="email" placeholder="Emal" class="form-control">
+                                <input type="email" name="email" value="{{ Auth::user()->email }}" placeholder="Emal" class="form-control">
                             </label>
                         </div>
 
@@ -57,7 +59,7 @@
                                 <span class="input-group-text">
                                     <i class="fas fa-envelope icon"></i>
                                 </span>
-                                <input type="number" name="telemovel" placeholder="Telemovel" class="form-control">
+                                <input type="number" name="telemovel" value="{{ Auth::user()->telemovel }}" placeholder="Telemovel" class="form-control">
                             </label>
                         </div>
                     </div>
@@ -94,9 +96,20 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fechar</button>
-                <button type="submit" class="btn btn-success">Salvar</button>
+                <button type="submit" class="btn btn-success" id="usuario-configuracao-form-btn">Salvar</button>
             </div>
 
         </div>
     </div>
 </div>
+
+<script>
+
+    let formulario_configuracao = document.querySelector("#usuario-configuracao-form")
+    let formulario_configuracao_btn = document.querySelector("#usuario-configuracao-form-btn")
+
+    formulario_configuracao_btn.addEventListener('click', () => {
+        formulario_configuracao.submit()
+    })
+
+</script>

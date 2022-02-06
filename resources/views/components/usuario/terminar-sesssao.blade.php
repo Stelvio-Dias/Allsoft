@@ -12,7 +12,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Não</button>
-                <a href="" class="btn btn-success">Sim</a>
+                <a href="{{route('logout')}}" class="btn btn-success">Sim</a>
             </div>
         </div>
     </div>

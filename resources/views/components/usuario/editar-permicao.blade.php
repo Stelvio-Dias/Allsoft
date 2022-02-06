@@ -21,23 +21,47 @@
                     </thead>
                     
                     <tbody>
+                        @foreach($users as $item)
                         <tr>
-                            <td>1</td>
-                            <td>PAUL ROVIA</td>
-                            <td>teste@gmail.com</td>
+                            <td>{{$item->id}}</td>
+                            <td>{{$item->nome}}</td>
+                            <td>{{$item->email}}</td>
                             {{-- Formulario Editar Nivel do Usuario --}}
-                            <form action="" method="">
+                            <form action="{{ route('dashboard.user.editar-permissao') }}" method="POST">
+                                @csrf
                                 <td>
-                                    <select name="admin" class="form-select">
-                                        <option value="0">Usuario</option>    
-                                        <option value="1">Admnistrador</option>    
+
+                                    <input type="hidden" name="id" value="{{$item->id}}">
+                                    
+                                    <select name="admin" 
+                                    @if(Auth::user()->id == $item->id)
+                                        disabled
+                                    @endif
+                                    class="form-select">
+                                        <option value="0"
+                                        @if($item->admin == false)
+                                            selected
+                                        @endif>
+                                            Usuario
+                                        </option>    
+                                        <option value="1"
+                                        @if($item->admin == true)
+                                            selected
+                                        @endif>
+                                            Admnistrador
+                                        </option>    
                                     </select>    
                                 </td>
                                 <td>
-                                    <button type="submit" class="btn btn-success">Editar</button>
+                                    <button type="submit" 
+                                    @if(Auth::user()->id == $item->id)
+                                        disabled
+                                    @endif
+                                    class="btn btn-success">Editar</button>
                                 </td>
                             </form>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

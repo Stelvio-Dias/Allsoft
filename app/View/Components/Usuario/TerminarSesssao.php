@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\Dashboard;
+namespace App\View\Components\Usuario;
 
 use Illuminate\View\Component;
 
@@ -23,6 +23,6 @@ class TerminarSesssao extends Component
      */
     public function render()
     {
-        return view('components.dashboard.terminar-sesssao');
+        return view('components.usuario.terminar-sesssao');
     }
 }

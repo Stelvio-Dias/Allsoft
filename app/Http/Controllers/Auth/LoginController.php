@@ -44,4 +44,11 @@ class LoginController extends Controller
             "password" => ["required", "string", "min:3"]
         ]);
     }
+
+    // Terminar sessão
+    public function logout() {
+        Auth::logout();
+
+        return redirect()->route('home');
+    }
 }

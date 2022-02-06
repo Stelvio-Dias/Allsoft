@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comuna;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -12,6 +13,10 @@ class HomeController extends Controller
     }
 
     public function index() {
-        return view('dashboard.home');
+        $comunas = Comuna::all();
+
+        return view('dashboard.home', [
+            "comunas" => $comunas ?? []
+        ]);
     }
 }

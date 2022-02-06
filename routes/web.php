@@ -46,6 +46,19 @@ Route::prefix('dashboard')->group(function() {
     Route::redirect('/', 'home');
     Route::get('home', 'Dashboard\HomeController@index')->name('dashboard.home');
 
+    
+    // Comunas
+
+    //cadastrar comuna
+    Route::post('comuna/cadastrar', 'Dashboard\ComunaController@cadastrar')->name('dashboard.comuna.cadastrar');
+
+    // deletar comuna
+    Route::post('comuna/deletar', 'Dashboard\ComunaController@deletar')->name('dashboard.comuna.deletar');
+
+    //editar comuna
+    Route::post('comuna/editar', 'Dashboard\ComunaController@editar')->name('dashboard.comuna.editar');
+
+
 });
 
 

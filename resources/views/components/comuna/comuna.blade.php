@@ -11,7 +11,8 @@
             <div class="modal-body">
                 
                 {{-- Adicionar Comuna --}}
-                <form action="" method="">
+                <form action="{{ route('dashboard.comuna.cadastrar') }}" method="POST">
+                    @csrf
                     <h2 class="title">Adicionar comuna</h2>
                     
                     <div class="row">
@@ -44,14 +45,15 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($comunas as $item)
                             <tr>
-                                <td>1</td>
-                                <td>Benfica</td>
+                                <td>{{$item->id}}</td>
+                                <td>{{$item->comuna}}</td>
                                 {{-- Editar --}}
                                 <td>
                                     <a href=""
                                     data-bs-toggle="modal"
-                                    data-bs-target="#editar-comuna">
+                                    data-bs-target="#editar-comuna-{{$item->id}}">
                                         <i class="fas fa-redo-alt"></i>
                                     </a>
                                 </td>
@@ -60,11 +62,12 @@
                                 <td>
                                     <a href=""
                                     data-bs-toggle="modal"
-                                    data-bs-target="#deletar-comuna">
+                                    data-bs-target="#deletar-comuna-{{$item->id}}">
                                         <i class="fas fa-times"></i>
                                     </a>
                                 </td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </section>
@@ -79,13 +82,6 @@
     </div>
 </div>
 
-{{-- Editar comuna --}}
-@component('components.comuna.editar-comuna')
-    
-@endcomponent
 
 
-{{-- Deletar Comuna --}}
-@component('components.comuna.deletar-comuna')
-    
-@endcomponent
+

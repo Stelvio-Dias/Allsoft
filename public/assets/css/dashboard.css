@@ -21,6 +21,7 @@ select {
     top: 80px;
 }
 .erros .alert {
+    z-index: 999999999999999999999999999999;
     width: 400px;
 }
 

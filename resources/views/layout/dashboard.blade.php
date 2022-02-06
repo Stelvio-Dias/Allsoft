@@ -59,17 +59,17 @@
             <li>
                 <a href=""
                 data-bs-toggle="modal"
-                data-bs-target="#editar-permicao">
-                    <i class="fas fa-user-shield icon"></i>
-                    Usuarios (02)
+                data-bs-target="#comunas">
+                    <i class="fas fa-map-marked-alt icon"></i>
+                    Comunas ({{ count($comunas) }})
                 </a>
             </li>
             <li>
                 <a href=""
                 data-bs-toggle="modal"
-                data-bs-target="#comunas">
-                    <i class="fas fa-map-marked-alt icon"></i>
-                    Comunas (04)
+                data-bs-target="#editar-permicao">
+                    <i class="fas fa-user-shield icon"></i>
+                    Usuarios (02)
                 </a>
             </li>
             <li>
@@ -111,14 +111,25 @@
 </div>
 
 
-{{-- <div class="erros">
+<div class="erros">
 
-    <div class="alert alert-danger alert-dismissible">
-        <strong>Erro: </strong>Ocorreu um erro
+    @if($errors->any())
+        @foreach($errors->all() as $error)
+        <div class="alert alert-danger alert-dismissible">
+            <strong>Erro! </strong>{{ $error }}
+            <button type="button" class="bt btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        @endforeach
+    @endif
+
+    @if(session('sucesso'))
+    <div class="alert alert-success alert-dismissible">
+        <strong>Parabéns! </strong>{{ session('sucesso') }}
         <button type="button" class="bt btn-close" data-bs-dismiss="alert"></button>
     </div>
+    @endif
 
-</div> --}}
+</div>
 
 <main id="main">
     @yield('main')
@@ -131,10 +142,25 @@
 @endcomponent
 
 
+{{--       XXXX Comunas XXXX       --}}
+
 {{-- Component Comunas --}}
 @component('components.comuna.comuna')
-    
+    @slot('comunas', $comunas)
 @endcomponent
+
+@foreach($comunas as $item)
+    {{-- Editar comuna --}}
+    @component('components.comuna.editar-comuna')
+        @slot('item', $item)
+    @endcomponent
+
+
+    {{-- Deletar Comuna --}}
+    @component('components.comuna.deletar-comuna')
+        @slot('item', $item)
+    @endcomponent
+@endforeach
 
 {{-- Component Pedido --}}
 @component('components.pedido.pedido')

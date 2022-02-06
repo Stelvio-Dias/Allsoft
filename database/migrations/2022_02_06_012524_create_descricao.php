@@ -16,7 +16,7 @@ class CreateDescricao extends Migration
         Schema::create('descricao', function (Blueprint $table) {
             $table->id();
             $table->foreignId('desaparecido_id')->constrained('desaparecido');
-            $table->text('comentario');
+            $table->text('descricao');
             $table->timestamps();
         });
     }

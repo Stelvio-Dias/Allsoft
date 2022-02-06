@@ -124,16 +124,17 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach($desaparecidos as $item)
                 <tr>
-                    <td>1</td>
-                    <td data-bs-toggle="modal" data-bs-target="#imagem-1">
+                    <td>{{$item->id}}</td>
+                    <td data-bs-toggle="modal" data-bs-target="#imagem-{{$item->id}}">
                         <img 
-                        src="{{ url("assets/images/Blog-post/blg10.png") }}"
+                        src="{{ url("desaparecidos/{$item->imagem}") }}"
                         class="view-img">
                     </td>
-                    <td>Paul Rovia</td>
-                    <td>2022/01/01</td>
-                    <td>Benfica</td>
+                    <td>{{$item->nome}}</td>
+                    <td>{{ str_replace('-', '/', $item->data_nascimento) }}</td>
+                    <td>{{ $item->comuna->comuna }}</td>
                     {{-- Editar --}}
                     <td>
                         <a href=""
@@ -146,11 +147,12 @@
                     <td>
                         <a href=""
                         data-bs-toggle="modal"
-                        data-bs-target="#deletar-desaparecido">
+                        data-bs-target="#deletar-desaparecido-{{$item->id}}">
                             <i class="fas fa-times icon"></i>
                         </a>
                     </td>
                 </tr>
+                @endforeach
             </tbody>
         </table>
     </section>
@@ -159,19 +161,5 @@
 
 @endsection
 
-{{-- Component Exibir imagem --}}
-@component('components.desaparecido.exibir-imagem')
-
-@endcomponent
-
-{{-- Component Editar desaparecido --}}
-@component('components.desaparecido.editar-desaparecido')
-    
-@endcomponent
-
-{{-- Component Deletar Desaparecido --}}
-@component('components.desaparecido.deletar-desaparecido')
-    
-@endcomponent
 
 

@@ -171,6 +171,8 @@
     @endcomponent
 @endforeach
 
+
+{{-- XXXXXXXXXXXXXXXXX DESAPARECIDOS XXXXXXXXXXXXXX --}}
 {{-- Component Pedido --}}
 @component('components.pedido.pedido')
     
@@ -178,8 +180,27 @@
 
 {{-- Component Cadastrar desaparecido --}}
 @component('components.desaparecido.cadastrar-desaparecido')
+    @slot('comunas', $comunas)
+@endcomponent
+
+@foreach($desaparecidos as $item)
+    {{-- Component Exibir imagem --}}
+    @component('components.desaparecido.exibir-imagem')
+        @slot('item', $item)
+    @endcomponent
+
+    {{-- Component Deletar Desaparecido --}}
+    @component('components.desaparecido.deletar-desaparecido')
+        @slot('item', $item)
+    @endcomponent
+@endforeach
+
+{{-- Component Editar desaparecido --}}
+@component('components.desaparecido.editar-desaparecido')
     
 @endcomponent
+
+
 
 
 

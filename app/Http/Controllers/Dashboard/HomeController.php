@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
-use App\Models\Comuna;
 use App\Models\User;
+use App\Models\Comuna;
+use App\Models\Desaparecido;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
@@ -16,10 +17,12 @@ class HomeController extends Controller
     public function index() {
         $comunas = Comuna::all();
         $users = User::all();
+        $desaparecidos = Desaparecido::all();
 
         return view('dashboard.home', [
             "comunas" => $comunas ?? [],
-            "users" => $users ?? []
+            "users" => $users ?? [],
+            "desaparecidos" => $desaparecidos ?? []
         ]);
     }
 }

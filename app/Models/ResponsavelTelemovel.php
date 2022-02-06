@@ -11,6 +11,8 @@ class ResponsavelTelemovel extends Model
 
     protected $table = "responsavel_telemovel";
 
+    protected $fillable = ["telemovel"];
+
     public function responsavelTelemovel1() {
         return $this->hasOne(Desaparecido::class, 'responsavel_telemovel1_id', 'id');
     }

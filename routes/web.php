@@ -43,7 +43,6 @@ Route::post('cadastrar-action', 'Auth\CadastroController@cadastrarAction')->name
 
 // Dashboard
 Route::prefix('dashboard')->group(function() {
-
     // Rota home
     Route::redirect('/', 'home');
     Route::get('home', 'Dashboard\HomeController@index')->name('dashboard.home');
@@ -67,6 +66,13 @@ Route::prefix('dashboard')->group(function() {
     Route::post('user/editar-permissao', 'Dashboard\UserController@editarPermissao')->name('dashboard.user.editar-permissao');
     // configuração
     Route::post('user/configuracao', 'Dashboard\UserController@configuracao')->name('dashboard.user.configuracao');
+
+
+
+    // Desaparecidods
+    Route::post('desaparecido/cadastrar', 'Dashboard\DesaparecidoController@cadastrar')->name('dashboard.desaparecido.cadastrar');
+    // deletar desaparecido
+    Route::post('desaparecido/deletar', 'Dashboard\DesaparecidoController@deletar')->name('dashboard.desaparecido.deletar');
 
 });
 

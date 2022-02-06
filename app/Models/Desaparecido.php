@@ -11,6 +11,12 @@ class Desaparecido extends Model
 
     protected $table = "desaparecido";
 
+    protected $fillable = [
+        "nome", "data_nascimento", "imagem", "aprovado", "user_id", "comuna_id",
+        "email", "responsavel_telemovel1_id", "responsavel_telemovel2_id", "altura", "peso",
+        "visualizacoes_qtd", "status", "id"
+    ];
+
     public function comuna() {
         return $this->belongsTo(Comuna::class, 'comuna_id', 'id');
     }

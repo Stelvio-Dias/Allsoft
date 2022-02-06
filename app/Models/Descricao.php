@@ -11,6 +11,10 @@ class Descricao extends Model
 
     protected $table = "descricao";
 
+    protected $fillable = [
+        "desaparecido_id", "descricao"
+    ];
+
     public function descricao() {
         return $this->belongsTo(Desaparecido::class, 'desaparecido_id', 'id');
     }

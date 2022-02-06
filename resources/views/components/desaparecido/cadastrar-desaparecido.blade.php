@@ -10,7 +10,10 @@
             {{-- Modal Body --}}
             <div class="modal-body">
 
-                <form action="" method="" enctype="multipart/form-data">
+                <form action="{{route('dashboard.desaparecido.cadastrar')}}" id="cadastrar-desaparecido-form" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                    <input type="hidden" name="aprovado" value="{{ Auth::user()->admin }}">
 
                     {{-- Nome \ Data De nascimento \ Imagem --}}
                     <div class="row">
@@ -92,8 +95,9 @@
                                     <i class="fas fa-map-marked-alt icon"></i>
                                 </span>
                                 <select name="comuna_id" class="form-select">
-                                    <option value="1">Benfica</option>
-                                    <option value="2">Talatona</option>
+                                    @foreach($comunas as $item)
+                                    <option value="{{$item->id}}">{{ $item->comuna }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </label>
@@ -136,8 +140,17 @@
             {{-- Modal footer --}}
             <div class="modal-footer">
                 <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fechar</button>
-                <button type="submit" class="btn btn-success">Cadastrar</button>
+                <button type="submit" class="btn btn-success" id="cadastrar-desaparecido-form-btn">Cadastrar</button>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    let formulario_cadastrar_desaparecido = document.querySelector("#cadastrar-desaparecido-form")
+    let formulario_btn_cadastrar_desaparecido = document.querySelector("#cadastrar-desaparecido-form-btn")
+
+    formulario_btn_cadastrar_desaparecido.addEventListener('click', () => {
+        formulario_cadastrar_desaparecido.submit()
+    })
+</script>

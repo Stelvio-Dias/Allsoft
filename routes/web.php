@@ -32,13 +32,14 @@ Route::get('pesquisa', 'PesquisaController@index')->name('pesquisa');
 
 // Login
 Route::get('login', 'Auth\LoginController@index')->name('login');
+Route::post('login-action', 'Auth\LoginController@loginAction')->name('login-action');
+
+
 // Cadastro
 Route::get('cadastro', 'Auth\CadastroController@index')->name('cadastro');
-
-
+Route::post('cadastrar-action', 'Auth\CadastroController@cadastrarAction')->name('cadastrar-action');
 
 // Dashboard
-
 Route::prefix('dashboard')->group(function() {
 
     // Rota home
@@ -46,3 +47,5 @@ Route::prefix('dashboard')->group(function() {
     Route::get('home', 'Dashboard\HomeController@index')->name('dashboard.home');
 
 });
+
+

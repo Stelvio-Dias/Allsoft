@@ -21,12 +21,16 @@
 
 <div class="erros">
 
-    <div class="alert alert-danger alert-dismissible">
-        <strong>Erro: </strong>Ocorreu um erro
-        <button type="button" class="bt btn-close" data-bs-dismiss="alert"></button>
-    </div>
+    @if($errors->any())
+        @foreach($errors->all() as $error)
+            <div class="alert alert-danger alert-dismissible">
+                <strong>Erro! </strong>{{ $error }}
+                <button type="button" class="bt btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endforeach
+    @endif
 
-</div>
+</div> 
 
 <main>
     @yield('body')

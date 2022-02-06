@@ -6,7 +6,8 @@
 {{-- Body --}}
 @section('body')
 
-<form action="" method="">
+<form action="{{ route('cadastrar-action') }}" method="POST">
+    @csrf
     
     <div class="">
         <h2>REGISTRAR UM NOVO MEMBRO</h2>
@@ -19,7 +20,7 @@
                 <span class="input-group-text">
                     <i class="fas fa-user icon"></i>
                 </span>
-                <input type="text" name="nome" value="" class="form-control" placeholder="Nome">
+                <input type="text" name="nome" value="{{ old('nome') }}" class="form-control" placeholder="Nome">
             </div>
         </div>
     </div>
@@ -31,7 +32,7 @@
                 <span class="input-group-text">
                     <i class="fas fa-envelope icon"></i>
                 </span>
-                <input type="email" name="email" class="form-control" placeholder="E-Mail">
+                <input type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="E-Mail">
             </div>
         </div>
     </div>
@@ -43,7 +44,7 @@
                 <span class="input-group-text">
                     <i class="fas fa-phone icon"></i>
                 </span>
-                <input type="number" name="telemovel" class="form-control" placeholder="Telemovel">
+                <input type="number" name="telemovel" value="{{ old('telemovel') }}" class="form-control" placeholder="Telemovel">
             </div>
         </div>
     </div>
@@ -55,7 +56,7 @@
                 <span class="input-group-text">
                     <i class="fas fa-calendar-alt icon"></i>
                 </span>
-                <input type="date" name="data_nascimento" class="form-control" placeholder="dd/mm/aa">
+                <input type="date" name="data_nascimento" value="{{ old('data_nascimento') }}" class="form-control" placeholder="dd/mm/aa">
             </div>
         </div>
     </div>

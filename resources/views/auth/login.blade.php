@@ -6,7 +6,8 @@
 {{-- Body --}}
 @section('body')
 
-<form action="" method="">
+<form action="{{ route('login-action') }}" method="POST">
+    @csrf
     
     <div class="">
         <h2>Entrar</h2>
@@ -20,7 +21,7 @@
                 <span class="input-group-text">
                     <i class="fas fa-envelope icon"></i>
                 </span>
-                <input type="email" name="email" class="form-control" placeholder="E-Mail">
+                <input type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="E-Mail">
             </div>
         </div>
     </div>

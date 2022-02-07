@@ -193,12 +193,15 @@
     @component('components.desaparecido.deletar-desaparecido')
         @slot('item', $item)
     @endcomponent
+
+    {{-- Component Editar desaparecido --}}
+    @component('components.desaparecido.editar-desaparecido')
+        @slot('item', $item)
+        @slot('comunas', $comunas)
+    @endcomponent
 @endforeach
 
-{{-- Component Editar desaparecido --}}
-@component('components.desaparecido.editar-desaparecido')
-    
-@endcomponent
+
 
 
 

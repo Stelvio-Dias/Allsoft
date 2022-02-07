@@ -139,7 +139,7 @@
                     <td>
                         <a href=""
                         data-bs-toggle="modal"
-                        data-bs-target="#editar-desaparecido">
+                        data-bs-target="#editar-desaparecido-{{$item->id}}">
                             <i class="fas fa-redo-alt icon"></i>
                         </a>
                     </td>

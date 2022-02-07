@@ -15,7 +15,8 @@ class CreateDescricao extends Migration
     {
         Schema::create('descricao', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('desaparecido_id')->constrained('desaparecido');
+            $table->foreignId('desaparecido_id')->constrained('desaparecido')
+                ->onDelete('cascade');
             $table->text('descricao');
             $table->timestamps();
         });

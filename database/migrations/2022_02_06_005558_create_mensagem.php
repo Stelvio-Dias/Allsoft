@@ -18,7 +18,8 @@ class CreateMensagem extends Migration
             $table->string('nome', 50);
             $table->string('email', 100);
             // relacionamento com a tabela assunto_mensagem 
-            $table->foreignId('usuario_mensagem_id')->constrained('assunto_mensagem');
+            $table->foreignId('usuario_mensagem_id')->constrained('assunto_mensagem')
+                ->onDelete('cascade');
 
 
             $table->timestamps();

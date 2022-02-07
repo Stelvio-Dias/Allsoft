@@ -28,16 +28,18 @@ class CreateDesaparecido extends Migration
 
             $table->foreignId('responsavel_telemovel1_id')
                 ->nullable()
-                ->constrained('responsavel_telemovel');
+                ->constrained('responsavel_telemovel')
+                ->onDelete('cascade');
 
             $table->foreignId('responsavel_telemovel2_id')
                 ->nullable()
-                ->constrained('responsavel_telemovel');
+                ->constrained('responsavel_telemovel')
+                ->onDelete('cascade');
 
             // Não obrigatorios
             $table->string('email', 100)->nullable()->unique();
-            $table->integer('altura')->nullable()->unique();
-            $table->integer('peso')->nullable()->unique();
+            $table->integer('altura')->nullable();
+            $table->integer('peso')->nullable();
 
 
             $table->timestamps();

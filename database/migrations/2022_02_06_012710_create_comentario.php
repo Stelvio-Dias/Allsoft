@@ -18,8 +18,10 @@ class CreateComentario extends Migration
             $table->string('nome', 50);
             $table->text('comentario');
 
-            $table->foreignId('desaparecido_id')->constrained('desaparecido');
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('desaparecido_id')->constrained('desaparecido')
+                ->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')
+                ->onDelete('cascade');
             
             $table->timestamps();
         });

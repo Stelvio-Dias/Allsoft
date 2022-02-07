@@ -22,27 +22,33 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($pedidos as $item)
                         <tr>
-                            <td>1</td>
-                            <td data-bs-toggle="modal" data-bs-target="#imagem-1">
+                            <td>{{$item->id}}</td>
+                            <td data-bs-toggle="modal" data-bs-target="#imagem-{{$item->id}}">
                                 <img 
-                                src="{{ url("assets/images/Blog-post/blg10.png") }}"
+                                src="{{ url("desaparecidos/{$item->imagem}") }}"
                                 class="view-img">
                             </td>
-                            <td>Paul Rovia</td>
-                            <td>2022/01/01</td>
-                            <td>Benfica</td>
+                            <td>{{ $item->nome }}</td>
+                            <td>{{ str_replace('-', '/', $item->data_nascimento) }}</td>
+                            <td>{{ $item->comuna->comuna }}</td>
                             <td>
-                                <form method="" action="">
-                                    <button type="button" class="btn btn-danger">Rejeitar</button>
+                                <form action="{{route('dashboard.desaparecido.deletar')}}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{$item->id}}">
+                                    <button type="submit" class="btn btn-danger">Rejeitar</button>
                                 </form>
                             </td>
                             <td>
-                                <form action="" method="">
-                                    <button type="button" class="btn btn-success">Aceitar</button>
+                                <form action="{{ route('dashboard.desaparecido.aceitar-pedido') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{$item->id}}">
+                                    <button type="submit" class="btn btn-success">Aceitar</button>
                                 </form>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

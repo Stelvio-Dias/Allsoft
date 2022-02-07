@@ -8,6 +8,7 @@
 
 <div class="container-fluid">
 
+    @if(Auth::user()->admin == true)
     {{-- Dados gerais --}}
     <section id="dados-gerais" class="mt-5">
         <div class="row">
@@ -18,12 +19,12 @@
                         <h2>Cadastrados</h2>
                         <span>
                             {{-- Quantidade total de cadastrados --}}
-                            0
+                            {{ $desaparecidos_qtd + $aparecidos_qtd }}
                         </span>
         
                         <h3>
                             <span class="text-danger">
-                                0
+                                {{ $desaparecidos_menores_qtd + $aparecidos_menores_qtd }}
                             </span>
                             Menores de idade
                         </h3>
@@ -37,12 +38,12 @@
                         <h2>Desaparecidos</h2>
                         <span>
                             {{-- Quantidade total de desaparecidos --}}
-                            0
+                            {{ $desaparecidos_qtd }}
                         </span>
         
                         <h3>
                             <span class="text-danger">
-                                0
+                                {{ $desaparecidos_menores_qtd }}
                             </span>
                             Menores de idade
                         </h3>
@@ -56,12 +57,12 @@
                         <h2>Aparecidos</h2>
                         <span>
                             {{-- Quantidade total de aparecidos --}}
-                            0
+                            {{ $aparecidos_qtd }}
                         </span>
         
                         <h3>
                             <span class="text-danger">
-                                0
+                                {{ $aparecidos_menores_qtd }}
                             </span>
                             Menores de idade
                         </h3>
@@ -75,12 +76,12 @@
                         <h2>Avistamentos</h2>
                         <span>
                             {{-- Quantidade total de avistamentos --}}
-                            0
+                            {{ $avistamentos }}
                         </span>
         
                         <h3>
                             <span class="text-danger">
-                                0
+                                {{ $avistamentos_menores }}
                             </span>
                             Menores de idade
                         </h3>
@@ -90,15 +91,15 @@
 
         </div>
     </section>
-
+    @endif
 
     {{-- Form Home --}}
     <section id="form-home" class="mt-5">
         <h2 class="title text-center">Pessoas Desaparecidas</h2>
-        <form action="" method="">
+        <form action="" method="GET">
             <div class="row">
                 <div class="col-10 pe-0">
-                    <input type="text" name="campo" placeholder="ID ou Nome" class="form-control rounded-0">
+                    <input type="text" name="campo" value="{{ old('campo') }}" placeholder="ID ou Nome" class="form-control rounded-0">
                 </div>
                 
                 <div class="col-2 ps-0">
@@ -124,7 +125,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($desaparecidos as $item)
+                @foreach($desaparecidos_query as $item)
                 <tr>
                     <td>{{$item->id}}</td>
                     <td data-bs-toggle="modal" data-bs-target="#imagem-{{$item->id}}">
@@ -155,6 +156,8 @@
                 @endforeach
             </tbody>
         </table>
+
+        {{ $desaparecidos_query->links() }}
     </section>
 
 </div>

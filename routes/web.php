@@ -75,6 +75,8 @@ Route::prefix('dashboard')->group(function() {
     Route::post('desaparecido/deletar', 'Dashboard\DesaparecidoController@deletar')->name('dashboard.desaparecido.deletar');
     // Editar desaparecido
     Route::post('desaparecido/editar', 'Dashboard\DesaparecidoController@editar')->name('dashboard.desaparecido.editar');
+    // aceitar pedido
+    Route::post('desaparecido/aceitar-pedido', 'Dashboard\DesaparecidoController@aceitarPedido')->name('dashboard.desaparecido.aceitar-pedido');
 
 });
 

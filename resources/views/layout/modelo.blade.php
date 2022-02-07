@@ -32,16 +32,16 @@
             <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="">Home</a>
+                        <a class="nav-link" href="{{route('home')}}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Logar</a>
+                        <a class="nav-link" href="{{route('dashboard.home')}}">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Contacto</a>
+                        <a class="nav-link" href="#footer">Contacto</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link bg-primary rounded-pill btn-pill" href="">faq</a>
+                        <a class="nav-link bg-primary rounded-pill btn-pill" href="{{route('faq')}}">faq</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-lg-4 mt-3 mt-lg-0">

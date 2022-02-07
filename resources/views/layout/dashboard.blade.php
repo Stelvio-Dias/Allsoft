@@ -43,7 +43,7 @@
 {{-- Offcanvas --}}
 <div class="offcanvas offcanvas-start bg-dark" id="menu" >
     <div class="offcanvas-header">
-        <a href="#">
+        <a href="{{route('home')}}">
             <h2>{{ env('APP_NAME') }}</h2>
         </a>
         <button type="button" class="btn-close-white btn-close" data-bs-dismiss="offcanvas"></button>
@@ -51,11 +51,12 @@
     <div class="offcanvas-body">
         <ul>
             <li>
-                <a href="">
+                <a href="{{route('home')}}">
                     <i class="fas fa-home icon"></i>
                     Home
                 </a>
             </li>
+            @if(Auth::user()->admin == true)
             <li>
                 <a href=""
                 data-bs-toggle="modal"
@@ -77,9 +78,10 @@
                 data-bs-toggle="modal"
                 data-bs-target="#pedidos">
                     <i class="fas fa-hand-holding-heart icon"></i>
-                    Pedidos (03)
+                    Pedidos ({{ count($pedidos) }})
                 </a>
             </li>
+            @endif
             <li>
                 <a href=""
                 data-bs-toggle="modal"
@@ -173,17 +175,25 @@
 
 
 {{-- XXXXXXXXXXXXXXXXX DESAPARECIDOS XXXXXXXXXXXXXX --}}
-{{-- Component Pedido --}}
-@component('components.pedido.pedido')
-    
-@endcomponent
+@if(Auth::user()->admin == true)
+    {{-- Component Pedido --}}
+    @component('components.pedido.pedido')
+        @slot('pedidos', $pedidos)
+    @endcomponent
+
+    @foreach ($pedidos as $item)
+        @component('components.desaparecido.exibir-imagem')
+            @slot('item', $item)
+        @endcomponent
+    @endforeach
+@endif
 
 {{-- Component Cadastrar desaparecido --}}
 @component('components.desaparecido.cadastrar-desaparecido')
     @slot('comunas', $comunas)
 @endcomponent
 
-@foreach($desaparecidos as $item)
+@foreach($desaparecidos_query as $item)
     {{-- Component Exibir imagem --}}
     @component('components.desaparecido.exibir-imagem')
         @slot('item', $item)

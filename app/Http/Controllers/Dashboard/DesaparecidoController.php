@@ -133,20 +133,31 @@ class DesaparecidoController extends Controller
         $desaparecido = Desaparecido::find($data['id']);
 
         // Responsavel telemovel 1
-        ResponsavelTelemovel::find($desaparecido->responsavel_telemovel1_id)
+        if(is_null($desaparecido->responsavel_telemovel1_id) == false) {
+            ResponsavelTelemovel::find($desaparecido->responsavel_telemovel1_id)
             ->delete();
+        }
+
 
         // Responsavel telemovel 2
-        ResponsavelTelemovel::find($desaparecido->responsavel_telemovel2_id)
-        ->delete();
+        if(is_null($desaparecido->responsavel_telemovel2_id) == false) {
+            ResponsavelTelemovel::find($desaparecido->responsavel_telemovel2_id)
+            ->delete();
+        }
 
         // Descrição
-        Descricao::where('desaparecido_id', $desaparecido->id)
-            ->delete();
+        $descricao = Descricao::where('desaparecido_id', $desaparecido->id)->get();
+
+        if(count($descricao) > 0) {
+            $descricao->delete();
+        }
 
         // Comentarios
-        Comentario::where('desaparecido_id', $desaparecido->id)
-            ->delete();
+        $comentarios = Comentario::where('desaparecido_id', $desaparecido->id)->get();
+
+        if(count($comentarios) > 0) {
+            $comentarios->delete();
+        }
 
         // Apagar a imagem
         unlink("desaparecidos/{$desaparecido->imagem}");
@@ -292,5 +303,20 @@ class DesaparecidoController extends Controller
 
         return redirect()->back()
             ->with('sucesso', 'Desaparecido editado com sucesso');
+    }
+
+    public function aceitarPedido(Request $request) {
+        $data = $request->validate([
+            "id" => ["required", "integer", "min:1", "exists:desaparecido,id"]
+        ]);
+
+        $desaparecido = Desaparecido::find($data['id']);
+
+        $desaparecido->aprovado = true;
+
+        $desaparecido->save();
+
+        return redirect()->back()
+            ->with('sucesso', 'Pedido aprovado com sucesso');
     }
 }

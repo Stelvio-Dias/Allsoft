@@ -51,8 +51,8 @@
     {{-- Links --}}
     <div class="links">
         <p>
-            <a href="">
-                Já sou um membro
+            <a href="{{route('cadastro')}}">
+                Ainda não sou um membro
             </a>
         </p>
     </div>

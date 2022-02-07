@@ -96,7 +96,7 @@
     {{-- Links --}}
     <div class="links">
         <p>
-            <a href="">
+            <a href="{{route('login')}}">
                 Já sou um membro
             </a>
         </p>

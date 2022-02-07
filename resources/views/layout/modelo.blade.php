@@ -64,10 +64,21 @@
 
 <div class="erros">
 
-    <div class="alert alert-danger alert-dismissible">
-        <strong>Erro: </strong>Ocorreu um erro
+    @if($errors->any())
+        @foreach($errors->all() as $error)
+        <div class="alert alert-danger alert-dismissible">
+            <strong>Erro! </strong>{{ $error }}
+            <button type="button" class="bt btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        @endforeach
+    @endif
+
+    @if(session('sucesso'))
+    <div class="alert alert-success alert-dismissible">
+        <strong>Parabéns! </strong>{{ session('sucesso') }}
         <button type="button" class="bt btn-close" data-bs-dismiss="alert"></button>
     </div>
+    @endif
 
 </div>
 

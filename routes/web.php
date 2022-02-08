@@ -19,7 +19,13 @@ Route::redirect('/', 'home');
 Route::get('home', 'HomeController@index')->name('home');
 
 // Rota da pagina perfil
-Route::get('perfil', 'PerfilController@index')->name('perfil');
+Route::get('perfil/{id}', 'PerfilController@index')->name('perfil');
+Route::post('perfil/visualizar', 'PerfilController@visualizar')->name('perfil.visualizar');
+Route::post('perfil/comentar', 'PerfilController@comentar')->name('perfil.comentar');
+Route::post('perfil/comentario/deletar', 'PerfilController@deletarComentario')->name('perfil.comentario.deletar');
+
+
+
 
 // Rota da pagina faq
 Route::get('faq', 'FAQController@index')->name('faq');

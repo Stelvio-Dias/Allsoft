@@ -12,6 +12,6 @@
         <p>
             {{ $item->descricao->descricao ?? '' }}
         </p>
-        <a href="">Ver Mais</a>
+        <a href="{{ route('perfil', ["id" => $item->id]) }}">Ver Mais</a>
     </div>
 </div>

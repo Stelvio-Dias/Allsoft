@@ -15,7 +15,6 @@ class CreateComentario extends Migration
     {
         Schema::create('comentario', function (Blueprint $table) {
             $table->id();
-            $table->string('nome', 50);
             $table->text('comentario');
 
             $table->foreignId('desaparecido_id')->constrained('desaparecido')

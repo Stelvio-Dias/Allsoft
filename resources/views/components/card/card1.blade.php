@@ -27,12 +27,12 @@
     {{-- Body Card --}}
     <div class="card-body">
         <h2>
-            <a href="">{{ $item->nome }}</a>
+            <a href="{{ route('perfil', ["id" => $item->id]) }}">{{ $item->nome }}</a>
         </h2>
         <p>
             {{ $item->descricao->descricao ?? '' }}
         </p>
-        <a href="">Ver Mais <i class="fas fa-arrow-right icon"></i></a>
+        <a href="{{ route('perfil', ["id" => $item->id]) }}">Ver Mais <i class="fas fa-arrow-right icon"></i></a>
     </div>
 
     <hr>

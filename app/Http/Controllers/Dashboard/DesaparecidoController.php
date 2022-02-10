@@ -109,7 +109,7 @@ class DesaparecidoController extends Controller
         // Descrição
         if($request->filled('descricao')) {
             $descricao = $request->validate([
-                "descricao" => ["required", "string", "min:2"]
+                "descricao" => ["required", "string", "min:230"]
             ]);
 
             Descricao::create([
@@ -290,7 +290,7 @@ class DesaparecidoController extends Controller
         // Descricao
         if($request->filled('descricao')) {
             $descricao = $request->validate([
-                "descricao" => ["required", "string", "min:2"]
+                "descricao" => ["required", "string", "min:230"]
             ]);
 
             Descricao::updateOrCreate(

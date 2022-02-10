@@ -152,6 +152,7 @@
 
                         </div>
 
+                        @if(Auth::user()->admin == true)
                         {{-- Aprovado --}}
                         <label class="col-12 col-md-6 col-lg-4">
                             <p>Aprovado</p>
@@ -176,6 +177,7 @@
                                 </select>    
                             </div>
                         </label>
+                        @endif
 
                     </div>
 

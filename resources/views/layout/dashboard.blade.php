@@ -30,7 +30,7 @@
             <i class="fas fa-bars icon"></i>
         </button>
 
-        <h1>Titulo da pagina</h1>
+        <h1>Home</h1>
 
         <h3>{{Auth::user()->nome}}</h3>
 
@@ -43,7 +43,7 @@
 {{-- Offcanvas --}}
 <div class="offcanvas offcanvas-start bg-dark" id="menu" >
     <div class="offcanvas-header">
-        <a href="{{route('home')}}">
+        <a href="{{route('home')}}" title="Ir para a página principal">
             <h2>{{ env('APP_NAME') }}</h2>
         </a>
         <button type="button" class="btn-close-white btn-close" data-bs-dismiss="offcanvas"></button>
@@ -51,7 +51,7 @@
     <div class="offcanvas-body">
         <ul>
             <li>
-                <a href="{{route('home')}}">
+                <a href="{{route('home')}}" title="Ir para a página principal">
                     <i class="fas fa-home icon"></i>
                     Home
                 </a>
@@ -59,6 +59,7 @@
             @if(Auth::user()->admin == true)
             <li>
                 <a href=""
+                title="Gerir comunas"
                 data-bs-toggle="modal"
                 data-bs-target="#comunas">
                     <i class="fas fa-map-marked-alt icon"></i>
@@ -67,6 +68,7 @@
             </li>
             <li>
                 <a href=""
+                title="Editar permissão de usuario"
                 data-bs-toggle="modal"
                 data-bs-target="#editar-permicao">
                     <i class="fas fa-user-shield icon"></i>
@@ -75,15 +77,23 @@
             </li>
             <li>
                 <a href=""
+                title="Ver pedidos"
                 data-bs-toggle="modal"
                 data-bs-target="#pedidos">
                     <i class="fas fa-hand-holding-heart icon"></i>
                     Pedidos ({{ count($pedidos) }})
                 </a>
             </li>
+            <li>
+                <a href="{{ route('dashboard.check-mate') }}">
+                    <i class="fas fa-chess-king icon"></i>
+                    Check Mate
+                </a>
+            </li>
             @endif
             <li>
                 <a href=""
+                title="Cadastrar desaparecidos"
                 data-bs-toggle="modal"
                 data-bs-target="#cadastrar-desaparecido">
                     <i class="fas fa-user-plus icon"></i>
@@ -92,6 +102,7 @@
             </li>
             <li>
                 <a href=""
+                title="Configurar dados"
                 data-bs-toggle="modal"
                 data-bs-target="#usuario-configuracao">
                     <i class="fas fa-cogs icon"></i>
@@ -100,6 +111,7 @@
             </li>
             <li>
                 <a href=""
+                title="Terminar sessão"
                 data-bs-toggle="modal"
                 data-bs-target="#terminar-sessao">
                     <i class="fas fa-sign-out-alt icon"></i>
@@ -210,13 +222,6 @@
         @slot('comunas', $comunas)
     @endcomponent
 @endforeach
-
-
-
-
-
-
-
     
 <script src="{{ url("assets/lib/bootstrap/js/bootstrap.min.js") }}"></script>
 <script src="{{ url("assets/lib/fontawesome/js/all.min.js") }}"></script>

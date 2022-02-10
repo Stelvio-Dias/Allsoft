@@ -17,7 +17,7 @@
                     
                     <div class="row">
                         {{-- Nome Comuna --}}
-                        <div class="col-9 pe-0">
+                        <div class="col-8 pe-0">
                             <div class="input-group">
                                 <span class="input-group-text rounded-0">
                                     <i class="fas fa-map-marked-alt"></i>
@@ -27,7 +27,7 @@
                         </div>
         
                         {{-- Botao Submit --}}
-                        <div class="col-3 ps-0">
+                        <div class="col-4 ps-0">
                             <button type="submit" class="form-control rounded-0 btn btn-dark">Adicionar</button>
                         </div>
                     </div>
@@ -35,41 +35,43 @@
 
                 {{-- ver comunas --}}
                 <section id="ver-comunas" class="mt-3">
-                    <table class="table table-hover table-light table-striped">
-                        <thead class="table-dark">
-                            <tr>
-                                <th>ID</th>
-                                <th>COMUNA</th>
-                                <th>AÇÃO</th>
-                                <th>AÇÃO</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($comunas as $item)
-                            <tr>
-                                <td>{{$item->id}}</td>
-                                <td>{{$item->comuna}}</td>
-                                {{-- Editar --}}
-                                <td>
-                                    <a href=""
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#editar-comuna-{{$item->id}}">
-                                        <i class="fas fa-redo-alt"></i>
-                                    </a>
-                                </td>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-light table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>COMUNA</th>
+                                    <th>AÇÃO</th>
+                                    <th>AÇÃO</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($comunas as $item)
+                                <tr>
+                                    <td>{{$item->id}}</td>
+                                    <td>{{$item->comuna}}</td>
+                                    {{-- Editar --}}
+                                    <td>
+                                        <a href=""
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editar-comuna-{{$item->id}}">
+                                            <i class="fas fa-redo-alt"></i>
+                                        </a>
+                                    </td>
 
-                                {{-- Deletar --}}
-                                <td>
-                                    <a href=""
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#deletar-comuna-{{$item->id}}">
-                                        <i class="fas fa-times"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                                    {{-- Deletar --}}
+                                    <td>
+                                        <a href=""
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deletar-comuna-{{$item->id}}">
+                                            <i class="fas fa-times"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </section>
 
             </div>

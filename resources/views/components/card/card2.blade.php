@@ -21,6 +21,10 @@
 
     {{-- Nome --}}
     <h3>
-        <a href="{{ route('perfil', ["id" => $item->id]) }}">{{ $item->nome }}</a>
+        <a href="{{ route('perfil', ["id" => $item->id]) }}"
+            title="Ver perfil de {{ $item->nome }}"
+            >
+            {{ $item->nome }}
+        </a>
     </h3>
 </div>

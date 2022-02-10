@@ -11,7 +11,7 @@ class HomeController extends Controller
         // Perfis dos desaparecidos
         $desaparecidos_perfis = Desaparecido::where('aprovado', '1')
             ->orderBy('created_at', 'desc')
-            ->simplePaginate(5);
+            ->paginate(5);
 
         // Mais Vistos
         $mais_vistos = Desaparecido::where('aprovado', '1')

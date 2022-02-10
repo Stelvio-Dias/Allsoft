@@ -98,11 +98,11 @@
         <h2 class="title text-center">Pessoas Desaparecidas</h2>
         <form action="" method="GET">
             <div class="row">
-                <div class="col-10 pe-0">
+                <div class="col-8 pe-0">
                     <input type="text" name="campo" value="{{ old('campo') }}" placeholder="ID ou Nome" class="form-control rounded-0">
                 </div>
                 
-                <div class="col-2 ps-0">
+                <div class="col-4 ps-0">
                     <input type="submit" class="form-control btn btn-dark rounded-0" value="Pesquisar">
                 </div>
             </div>
@@ -111,51 +111,53 @@
 
     
     {{-- Exiir resultados --}}
-    <section id="exibir-resultados" class="mt-5">
-        <table class="table table-striped table-hover">
-            <thead class="table-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>IMAGEM</th>
-                    <th>NOME</th>
-                    <th>DATA DE NASC.</th>
-                    <th>COMUNA</th>
-                    <th>EDITAR</th>
-                    <th>DELETAR</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($desaparecidos_query as $item)
-                <tr>
-                    <td>{{$item->id}}</td>
-                    <td data-bs-toggle="modal" data-bs-target="#imagem-{{$item->id}}">
-                        <img 
-                        src="{{ url("desaparecidos/{$item->imagem}") }}"
-                        class="view-img">
-                    </td>
-                    <td>{{$item->nome}}</td>
-                    <td>{{ str_replace('-', '/', $item->data_nascimento) }}</td>
-                    <td>{{ $item->comuna->comuna }}</td>
-                    {{-- Editar --}}
-                    <td>
-                        <a href=""
-                        data-bs-toggle="modal"
-                        data-bs-target="#editar-desaparecido-{{$item->id}}">
-                            <i class="fas fa-redo-alt icon"></i>
-                        </a>
-                    </td>
-                    {{-- Deletar --}}
-                    <td>
-                        <a href=""
-                        data-bs-toggle="modal"
-                        data-bs-target="#deletar-desaparecido-{{$item->id}}">
-                            <i class="fas fa-times icon"></i>
-                        </a>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+    <section id="exibir-resultados" class="mt-5 pb-4">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>IMAGEM</th>
+                        <th>NOME</th>
+                        <th>DATA DE NASC.</th>
+                        <th>COMUNA</th>
+                        <th>EDITAR</th>
+                        <th>DELETAR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($desaparecidos_query as $item)
+                    <tr>
+                        <td>{{$item->id}}</td>
+                        <td data-bs-toggle="modal" data-bs-target="#imagem-{{$item->id}}">
+                            <img 
+                            src="{{ url("desaparecidos/{$item->imagem}") }}"
+                            class="view-img">
+                        </td>
+                        <td>{{$item->nome}}</td>
+                        <td>{{ str_replace('-', '/', $item->data_nascimento) }}</td>
+                        <td>{{ $item->comuna->comuna }}</td>
+                        {{-- Editar --}}
+                        <td>
+                            <a href=""
+                            data-bs-toggle="modal"
+                            data-bs-target="#editar-desaparecido-{{$item->id}}">
+                                <i class="fas fa-redo-alt icon"></i>
+                            </a>
+                        </td>
+                        {{-- Deletar --}}
+                        <td>
+                            <a href=""
+                            data-bs-toggle="modal"
+                            data-bs-target="#deletar-desaparecido-{{$item->id}}">
+                                <i class="fas fa-times icon"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
 
         {{ $desaparecidos_query->links() }}
     </section>

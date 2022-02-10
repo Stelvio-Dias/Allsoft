@@ -14,6 +14,11 @@ class PerfilController extends Controller
             ->where('id', $id)
             ->first();
 
+        if(is_null($desaparecido)) {
+            return redirect()->back()
+                ->withErrors('Desaparecido não encontrado');
+        }
+
         // Calcular a idade
         $carbon = new Carbon($desaparecido->data_nascimento);
         $idade = $carbon->diff()->y;
@@ -22,6 +27,7 @@ class PerfilController extends Controller
         $mesma_zona = Desaparecido::where('aprovado', '1')
             ->where('comuna_id', $desaparecido->comuna_id)
             ->where('id', '!=', $desaparecido->id)
+            ->limit(5)
             ->get();
 
 

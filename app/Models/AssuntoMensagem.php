@@ -12,6 +12,8 @@ class AssuntoMensagem extends Model
     // Nome da tabela
     protected $table = "assunto_mensagem";
 
+    protected $fillable = ["assunto", "mensagem"];
+
     public function assuntoMensagem() {
         return $this->hasOne(Mensagem::class, 'assunto_mensagem_id', 'id');
     }

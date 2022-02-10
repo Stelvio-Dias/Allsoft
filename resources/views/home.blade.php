@@ -8,13 +8,13 @@
 <section id="header-banner">
     <div class="container">
         <h2>Procure Alguem Desaparecido</h2>
-        <form action="">
+        <form action="{{route('pesquisa')}}" method="GET">
             <div class="row">
                 <div class="col-9 pe-0">
                     <input type="search" name="nome" placeholder="Nome" class="form-control">
                 </div>
                 <div class="col-3 ps-0">
-                    <button type="submit" class="form-control">Procurar</button>
+                    <button type="submit" class="form-control" title="Pesquisar">Procurar</button>
                 </div>
             </div>
         </form>

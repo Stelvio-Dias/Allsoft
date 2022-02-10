@@ -1,5 +1,5 @@
 <div class="modal fade" id="imagem-{{$item->id}}">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
             {{-- Modal Header --}}
@@ -9,7 +9,7 @@
             </div>
 
             {{-- Modal Body --}}
-            <div class="modal-body">
+            <div class="modal-body text-center">
                 <img 
                 src="{{ url("desaparecidos/{$item->imagem}") }}"
                 class="img-fluid">

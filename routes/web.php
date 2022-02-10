@@ -34,8 +34,12 @@ Route::get('faq', 'FAQController@index')->name('faq');
 Route::get('pesquisa', 'PesquisaController@index')->name('pesquisa');
 
 
-// Autenticação
+// Footer action
+Route::post('newsletter', 'FooterController@newsletter')->name('newsletter');
+Route::post('mensagem', 'FooterController@mensagem')->name('mensagem');
 
+
+// Autenticação
 // Login
 Route::get('login', 'Auth\LoginController@index')->name('login');
 Route::post('login-action', 'Auth\LoginController@loginAction')->name('login-action');
@@ -83,6 +87,10 @@ Route::prefix('dashboard')->group(function() {
     Route::post('desaparecido/editar', 'Dashboard\DesaparecidoController@editar')->name('dashboard.desaparecido.editar');
     // aceitar pedido
     Route::post('desaparecido/aceitar-pedido', 'Dashboard\DesaparecidoController@aceitarPedido')->name('dashboard.desaparecido.aceitar-pedido');
+
+
+    // Check Mate
+    Route::get('check-mate', 'Dashboard\CheckMateController@index')->name('dashboard.check-mate');
 
 });
 

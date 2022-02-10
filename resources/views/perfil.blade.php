@@ -34,7 +34,7 @@
                     <form action="{{route('perfil.visualizar')}}" method="POST" id="form-visualizar">
                         @csrf
                         <input type="hidden" name="id" value="{{$desaparecido->id}}">
-                        <button type="submit" class="btn">Visualizar</button>
+                        <button type="submit" class="btn" title="Eu vi este desaparecido">Visualizar</button>
                     </form>
                     @else
                     <p class="text-danger">Esteja logado para visualizar</p>
@@ -68,9 +68,11 @@
                         <i class="fas fa-caret-down"></i>
                     </div>
 
-                    <div class="collapse" id="descricao">
+                    <div class="collapse show" id="descricao">
                         <p>{{ str_replace('-', '/', explode(' ', $desaparecido->created_at)[0]) }}</p>
-                        {{$desaparecido->descricao->descricao ?? ''}}
+                        <p class="">
+                            {{$desaparecido->descricao->descricao ?? ''}}
+                        </p>
                     </div>
                     <hr>
 
@@ -87,7 +89,7 @@
                         <input type="hidden" name="desaparecido_id" value="{{$desaparecido->id}}">
 
                         <textarea class="form-control my-2" name="comentario" placeholder="Comentario"></textarea>
-                        <button type="submit" class="form-control btn btn-success">Comentar</button>
+                        <button type="submit" class="form-control btn btn-success" title="Comentar">Comentar</button>
                     </form>
                     @else
                     <p class="text-danger">Esteja logado para comentar</p>

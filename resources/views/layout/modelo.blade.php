@@ -25,33 +25,33 @@
 <header id="header">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="{{ route('home') }}">{{ env('APP_NAME') }}</a>
+            <a class="navbar-brand" title="Ir para a página principal" href="{{ route('home') }}">{{ env('APP_NAME') }}</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="text-white fas fa-bars icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('home')}}">Home</a>
+                        <a class="nav-link" href="{{route('home')}}" title="Ir para a página principal">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('dashboard.home')}}">Dashboard</a>
+                        <a class="nav-link" href="{{route('dashboard.home')}}" title="Area admnistrativa">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#footer">Contacto</a>
+                        <a class="nav-link" href="#footer" title="Enviar uma mensagem">Contacto</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link bg-primary rounded-pill btn-pill" href="{{route('faq')}}">faq</a>
+                        <a class="nav-link bg-primary rounded-pill btn-pill" href="{{route('faq')}}" title="Perguntas frequestementes perguntadas">faq</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-lg-4 mt-3 mt-lg-0">
-                    <form action="" id="form-header">
+                    <form action="{{route('pesquisa')}}" method="GET" id="form-header">
                         <div class="row">
                             <div class="col-10 pe-0">
-                                <input type="search" name="campo" placeholder="Nome" class="form-control rounded-0">
+                                <input type="search" name="nome" placeholder="Nome" class="form-control rounded-0">
                             </div>
                             <div class="col-2 ps-0">
-                                <button type="submit" class="form-control btn btn-light rounded-0">
+                                <button type="submit" class="form-control btn btn-light rounded-0" title="Pesquisar">
                                     <i class="fas fa-search icon"></i>
                                 </button>
                             </div>
@@ -106,14 +106,15 @@
                         <div class="footer-title">
                             <h4 class="title">Newsletter</h4>
 
-                            <form action="" method="POST">
+                            <form action="{{ route('newsletter') }}" method="POST">
+                                @csrf
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur harum quod.</p>
                                 <div class="row">
                                     <div class="col-9 pe-0">
                                         <input type="email" name="email" placeholder="Email" class="form-control rounded-0">
                                     </div>
                                     <div class="col-3 ps-0">
-                                        <button type="submit" class="form-control rounded-0">
+                                        <button type="submit" class="form-control rounded-0" title="Assinar o newsletter">
                                             <i class="fas fa-chevron-right icon"></i>
                                         </button>
                                     </div>
@@ -127,16 +128,16 @@
                             <h4 class="title">Links</h4>
                             <ul>
                                 <li>
-                                    <a href="">Home</a>
+                                    <a href="{{route('home')}}" title="Ir para a página principal">Home</a>
                                 </li>
                                 <li>
-                                    <a href="">Sobre Nós</a>
+                                    <a href="{{route('faq')}}" title="Perguntas frequestemente perguntadas">FAQ</a>
                                 </li>
                                 <li>
-                                    <a href="">Como Cadastrar</a>
+                                    <a href="{{route('cadastro')}}" title="Criar uma conta">Cadastrar conta</a>
                                 </li>
                                 <li>
-                                    <a href="">Faq</a>
+                                    <a href="{{route('login')}}" title="Logar">Login</a>
                                 </li>
                             </ul>
                         </div>
@@ -151,7 +152,8 @@
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure quas eum quos magni voluptatibus eius iusto incidunt possimus? Explicabo, necessitatibus.</p>
                 </div>
 
-                <form action="" method="POST">
+                <form action="{{ route('mensagem') }}" method="POST">
+                    @csrf
 
                     {{-- Nome --}}
                     <div class="row mb-3">
@@ -171,7 +173,7 @@
                     {{-- Assunto --}}
                     <div class="row mb-3">
                         <div class="col-12">
-                            <input type="text" name="assinto" placeholder="Assunto" class="form-control">
+                            <input type="text" name="assunto" placeholder="Assunto" class="form-control">
                         </div>
                     </div>
 
@@ -182,7 +184,7 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="form-control btn">Enviar</button>
+                    <button type="submit" class="form-control btn" title="Enviar mensagem">Enviar</button>
                 </form>
 
             </div>    

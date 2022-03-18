@@ -25,27 +25,27 @@
 <header id="header">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" title="Ir para a página principal" href="{{ route('home') }}">{{ env('APP_NAME') }}</a>
+            <a class="navbar-brand" href="">{{ env('APP_NAME') }}</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="text-white fas fa-bars icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('home')}}" title="Ir para a página principal">Home</a>
+                        <a class="nav-link" href="">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('dashboard.home')}}" title="Area admnistrativa">Login</a>
+                        <a class="nav-link" href="">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#footer" title="Enviar uma mensagem">Contacto</a>
+                        <a class="nav-link" href="">Contacto</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link bg-primary rounded-pill btn-pill" href="{{route('faq')}}" title="Perguntas frequestementes perguntadas">faq</a>
+                        <a class="nav-link bg-primary rounded-pill btn-pill" href="">faq</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-lg-4 mt-3 mt-lg-0">
-                    <form action="{{route('pesquisa')}}" method="GET" id="form-header">
+                    <form action="" method="GET" id="form-header">
                         <div class="row">
                             <div class="col-10 pe-0">
                                 <input type="search" name="nome" placeholder="Nome" class="form-control rounded-0">
@@ -64,21 +64,6 @@
 
 <div class="erros">
 
-    @if($errors->any())
-        @foreach($errors->all() as $error)
-        <div class="alert alert-danger alert-dismissible">
-            <strong>Erro! </strong>{{ $error }}
-            <button type="button" class="bt btn-close" data-bs-dismiss="alert"></button>
-        </div>
-        @endforeach
-    @endif
-
-    @if(session('sucesso'))
-    <div class="alert alert-success alert-dismissible">
-        <strong>Parabéns! </strong>{{ session('sucesso') }}
-        <button type="button" class="bt btn-close" data-bs-dismiss="alert"></button>
-    </div>
-    @endif
 
 </div>
 
@@ -106,8 +91,7 @@
                         <div class="footer-title">
                             <h4 class="title">Newsletter</h4>
 
-                            <form action="{{ route('newsletter') }}" method="POST">
-                                @csrf
+                            <form action="" method="POST">
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur harum quod.</p>
                                 <div class="row">
                                     <div class="col-9 pe-0">
@@ -128,16 +112,16 @@
                             <h4 class="title">Links</h4>
                             <ul>
                                 <li>
-                                    <a href="{{route('home')}}" title="Ir para a página principal">Home</a>
+                                    <a href="" title="Ir para a página principal">Home</a>
                                 </li>
                                 <li>
-                                    <a href="{{route('faq')}}" title="Perguntas frequestemente perguntadas">FAQ</a>
+                                    <a href="" title="Perguntas frequestemente perguntadas">FAQ</a>
                                 </li>
                                 <li>
-                                    <a href="{{route('cadastro')}}" title="Criar uma conta">Cadastrar conta</a>
+                                    <a href="" title="Criar uma conta">Cadastrar conta</a>
                                 </li>
                                 <li>
-                                    <a href="{{route('login')}}" title="Logar">Login</a>
+                                    <a href="" title="Logar">Login</a>
                                 </li>
                             </ul>
                         </div>
@@ -152,9 +136,7 @@
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure quas eum quos magni voluptatibus eius iusto incidunt possimus? Explicabo, necessitatibus.</p>
                 </div>
 
-                <form action="{{ route('mensagem') }}" method="POST">
-                    @csrf
-
+                <form action="" method="POST">
                     {{-- Nome --}}
                     <div class="row mb-3">
                         <div class="col-12">
@@ -169,6 +151,7 @@
                             <input type="email" name="email" placeholder="Email" class="form-control">
                         </div>
                     </div>
+
                     {{-- Assunto --}}
                     <div class="row mb-3">
                         <div class="col-12">

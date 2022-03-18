@@ -1,11 +1,8 @@
 @extends('layout.modelo')
 
-@section('titulo', 'Perfil')
+@section('titulo', $desaparecido->nome)
 
 @section('body')
-
-
-
 {{-- Main Area --}}
 <section id="main-area" class="mt-5">
     <div class="container">
@@ -31,13 +28,22 @@
 
                     {{-- Formulario para visualizar --}}
                     @if(Auth::check() == true)
-                    <form action="{{route('perfil.visualizar')}}" method="POST" id="form-visualizar">
+                    {{-- Ligar --}}
+                    <a href="tel:923601472" class="btn btn-success">
+                        <i class="fas fa-phone"></i>
+                        Ligar
+                    </a>
+
+                    <form action="{{route('perfil.visualizar')}}" class="d-inline-block" method="POST" id="form-visualizar">
                         @csrf
                         <input type="hidden" name="id" value="{{$desaparecido->id}}">
-                        <button type="submit" class="btn" title="Eu vi este desaparecido">Visualizar</button>
+                        <button type="submit" class="btn" title="Eu vi este desaparecido">
+                            <i class="fas fa-eye"></i>
+                            Visualizar</button>
                     </form>
+
                     @else
-                    <p class="text-danger">Esteja logado para visualizar</p>
+                    <p class="text-danger">Faça <a href="{{route('login')}}">Login</a> para ligar e visualizar</p>
                     @endif
 
                     {{-- Idade | comuna | Copiar URL --}}
@@ -161,6 +167,4 @@
     </div>
 </section>
 {{-- !Main Area --}}
-
-
 @endsection

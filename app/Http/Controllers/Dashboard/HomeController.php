@@ -26,14 +26,14 @@ class HomeController extends Controller
             $desaparecidos_query = Desaparecido::where('id', 'like', '%' . $campo . '%')
                 ->orWhere('nome', 'like', '%' . $campo . '%')
                 ->orderBy('created_at', 'desc')
-                ->simplePaginate(10);
+                ->paginate(10);
         } else {
             $desaparecidos_query = Desaparecido::where('id', 'like', '%' . $campo . '%')
                 ->where('user_id', Auth::user()->id)
                 ->orWhere('nome', 'like', '%' . $campo . '%')
                 ->where('user_id', Auth::user()->id)
                 ->orderBy('created_at', 'desc')
-                ->simplePaginate(10);
+                ->paginate(10);
         }
 
 
@@ -72,10 +72,10 @@ class HomeController extends Controller
                     }
                 }
 
-                $avistamentos += $item->visualizacoes_qtd;
+                $avistamentos += $item->vizualizacoes_qtd;
 
                 if($idade < 18) {
-                    $avistamentos_menores += $item->visualizacoes_qtd;
+                    $avistamentos_menores += $item->vizualizacoes_qtd;
                 }
             }
 

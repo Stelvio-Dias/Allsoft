@@ -4,6 +4,8 @@
 
 @section('body')
 
+<!-- Example single danger button -->
+
 {{-- HEADER BANNER --}}
 <section id="header-banner">
     <div class="container">

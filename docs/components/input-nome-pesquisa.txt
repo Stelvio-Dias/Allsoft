@@ -1,4 +1,0 @@
-<div class="input-group">
-    <span class="input-group-text" id="basic-addon2">Nome</span>
-    <input type="text" name="nome" class="form-control" autofocus="true" placeholder="Nome">
-</div>

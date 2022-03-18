@@ -146,7 +146,7 @@ class CheckMateController extends Controller
                 $aprovado = true;
             }
 
-        } while($aprovado = false);
+        } while($aprovado == false);
 
         return $telefone;
     }

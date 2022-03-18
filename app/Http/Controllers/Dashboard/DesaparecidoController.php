@@ -38,7 +38,9 @@ class DesaparecidoController extends Controller
 
         // Processamento da imagem
         $imagem = Image::make($img);
-        $imagem->resize(700, 474);
+        $imagem->resize(700, 474, function($img) {
+            $img->aspectRatio();
+        });
         $imagem->save("desaparecidos/{$nome_final}");
 
         // Cadastrar os dados obrigarorios
@@ -119,6 +121,12 @@ class DesaparecidoController extends Controller
         }
         
         $desaparecido->save();
+
+        if($data['aprovado'] == false) {
+            return redirect()->back()
+            ->with('sucesso', 'Desaparecido cadastrado com sucesso')
+            ->with('info', 'Aguardando uma aprovação de um admnistrador');
+        }
 
         return redirect()->back()
             ->with('sucesso', 'Desaparecido cadastrado com sucesso');
@@ -202,7 +210,9 @@ class DesaparecidoController extends Controller
     
             // Processamento da imagem
             $imagem = Image::make($img);
-            $imagem->resize(700, 474);
+            $imagem->resize(700, 474, function($img) {
+                $img->aspectRatio();
+            });
             $imagem->save("desaparecidos/{$nome_final}");
 
             // apagar a imagem
@@ -303,6 +313,8 @@ class DesaparecidoController extends Controller
 
         return redirect()->back()
             ->with('sucesso', 'Desaparecido editado com sucesso');
+        
+        
     }
 
     public function aceitarPedido(Request $request) {

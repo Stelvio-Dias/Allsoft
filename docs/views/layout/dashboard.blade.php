@@ -24,7 +24,7 @@
 {{-- HEader --}}
 <header id="header" class="bg-dark text-white">
 
-    <div class="container-fluid d-flex justify-content-between align-items-center h-100 pe-5">
+    <div class="container-fluid d-flex justify-content-between align-items-center h-100">
 
         <button class="btn" data-bs-toggle="offcanvas" data-bs-target="#menu">
             <i class="fas fa-bars icon"></i>
@@ -32,7 +32,7 @@
 
         <h1>Home</h1>
 
-        <h3>{{Auth::user()->nome}}</h3>
+        <h3></h3>
 
 
     </div>
@@ -43,27 +43,26 @@
 {{-- Offcanvas --}}
 <div class="offcanvas offcanvas-start bg-dark" id="menu" >
     <div class="offcanvas-header">
-        <a href="{{route('home')}}" title="Ir para a página principal">
-            <h2>{{ env('APP_NAME') }}</h2>
+        <a href="" title="Ir para a página principal">
+            <h2>Nome APP</h2>
         </a>
         <button type="button" class="btn-close-white btn-close" data-bs-dismiss="offcanvas"></button>
     </div>
     <div class="offcanvas-body">
         <ul>
             <li>
-                <a href="{{route('home')}}" title="Ir para a página principal">
+                <a href="" title="Ir para a página principal">
                     <i class="fas fa-home icon"></i>
                     Home
                 </a>
             </li>
-            @if(Auth::user()->admin == true)
             <li>
                 <a href=""
                 title="Gerir comunas"
                 data-bs-toggle="modal"
                 data-bs-target="#comunas">
                     <i class="fas fa-map-marked-alt icon"></i>
-                    Comunas ({{ count($comunas) }})
+                    Comunas (0)
                 </a>
             </li>
             <li>
@@ -72,7 +71,7 @@
                 data-bs-toggle="modal"
                 data-bs-target="#editar-permicao">
                     <i class="fas fa-user-shield icon"></i>
-                    Usuarios ({{ count($users) }})
+                    Usuarios (0)
                 </a>
             </li>
             <li>
@@ -81,16 +80,15 @@
                 data-bs-toggle="modal"
                 data-bs-target="#pedidos">
                     <i class="fas fa-hand-holding-heart icon"></i>
-                    Pedidos ({{ count($pedidos) }})
+                    Pedidos (0)
                 </a>
             </li>
-            {{-- <li>
-                <a href="{{ route('dashboard.check-mate') }}">
+            <li>
+                <a href="">
                     <i class="fas fa-chess-king icon"></i>
                     Check Mate
                 </a>
-            </li> --}}
-            @endif
+            </li>
             <li>
                 <a href=""
                 title="Cadastrar desaparecidos"
@@ -124,111 +122,10 @@
     </div>
 </div>
 
-
-<div class="erros">
-
-    @if($errors->any())
-        @foreach($errors->all() as $error)
-        <div class="alert alert-danger alert-dismissible">
-            <strong>Erro! </strong>{{ $error }}
-            <button type="button" class="bt btn-close" data-bs-dismiss="alert"></button>
-        </div>
-        @endforeach
-    @endif
-
-    @if(session('sucesso'))
-    <div class="alert alert-success alert-dismissible">
-        <strong>Parabéns! </strong>{{ session('sucesso') }}
-        <button type="button" class="bt btn-close" data-bs-dismiss="alert"></button>
-    </div>
-    @endif
-
-    @if(session('info'))
-    <div class="alert alert-warning alert-dismissible">
-        <strong>Aviso! </strong>{{ session('info') }}
-        <button type="button" class="bt btn-close" data-bs-dismiss="alert"></button>
-    </div>
-    @endif
-
-</div>
-
 <main id="main">
     @yield('main')
 </main>
 
-{{-- ~xxxxxxxxxxxxx USers xxxxxxxxxxxx --}}
-{{-- Component Editar permissão --}}
-@component('components.usuario.editar-permicao')
-    @slot('users', $users)
-@endcomponent
-{{-- Component Usuario Configuração --}}
-@component('components.usuario.usuario-configuracao')
-    
-@endcomponent
-
-{{-- Component Terminar sessão --}}
-@component('components.usuario.terminar-sesssao')
-    
-@endcomponent
-
-
-{{--XXXXXXXXXXXXXXXX Comunas XXXXXXXXXXXXXXXXXXXX--}}
-
-{{-- Component Comunas --}}
-@component('components.comuna.comuna')
-    @slot('comunas', $comunas)
-@endcomponent
-
-@foreach($comunas as $item)
-    {{-- Editar comuna --}}
-    @component('components.comuna.editar-comuna')
-        @slot('item', $item)
-    @endcomponent
-
-
-    {{-- Deletar Comuna --}}
-    @component('components.comuna.deletar-comuna')
-        @slot('item', $item)
-    @endcomponent
-@endforeach
-
-
-{{-- XXXXXXXXXXXXXXXXX DESAPARECIDOS XXXXXXXXXXXXXX --}}
-@if(Auth::user()->admin == true)
-    {{-- Component Pedido --}}
-    @component('components.pedido.pedido')
-        @slot('pedidos', $pedidos)
-    @endcomponent
-
-    @foreach ($pedidos as $item)
-        @component('components.desaparecido.exibir-imagem')
-            @slot('item', $item)
-        @endcomponent
-    @endforeach
-@endif
-
-{{-- Component Cadastrar desaparecido --}}
-@component('components.desaparecido.cadastrar-desaparecido')
-    @slot('comunas', $comunas)
-@endcomponent
-
-@foreach($desaparecidos_query as $item)
-    {{-- Component Exibir imagem --}}
-    @component('components.desaparecido.exibir-imagem')
-        @slot('item', $item)
-    @endcomponent
-
-    {{-- Component Deletar Desaparecido --}}
-    @component('components.desaparecido.deletar-desaparecido')
-        @slot('item', $item)
-    @endcomponent
-
-    {{-- Component Editar desaparecido --}}
-    @component('components.desaparecido.editar-desaparecido')
-        @slot('item', $item)
-        @slot('comunas', $comunas)
-    @endcomponent
-@endforeach
     
 <script src="{{ url("assets/lib/bootstrap/js/bootstrap.min.js") }}"></script>
 <script src="{{ url("assets/lib/fontawesome/js/all.min.js") }}"></script>

@@ -53,7 +53,8 @@ class PesquisaController extends Controller
             ->where('comuna_id', 'like', '%' . $comuna . '%')
             ->where('created_at', 'like', '%' . $ano_desaparecimento .'%')
             ->orderBy('created_at', $ordem)
-            ->simplePaginate(8);
+            ->simplePaginate(8)
+            ->withQueryString();
 
         $request->flash();
 

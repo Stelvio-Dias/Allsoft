@@ -6,9 +6,7 @@
 {{-- Body --}}
 @section('body')
 
-<form action="{{ route('login-action') }}" method="POST">
-    @csrf
-    
+<form action="" method="POST">
     <div class="">
         <h2>Entrar</h2>
     </div>
@@ -21,7 +19,7 @@
                 <span class="input-group-text">
                     <i class="fas fa-envelope icon"></i>
                 </span>
-                <input type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="E-Mail">
+                <input type="email" name="email" value="" class="form-control" placeholder="E-Mail">
             </div>
         </div>
     </div>
@@ -50,14 +48,9 @@
 
     {{-- Links --}}
     <div class="links">
-        <p class="mb-0">
-            <a href="{{route('cadastro')}}">
+        <p>
+            <a href="">
                 Ainda não sou um membro
-            </a>
-        </p>
-        <p class="">
-            <a href="{{route('cadastro')}}">
-                Esqueceu a senha?
             </a>
         </p>
     </div>

@@ -44,7 +44,7 @@ select {
 }
 #header .btn-pill {
     background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
-    color: #000;
+    color: #000 !important;
     padding-left: 25px;
     padding-right: 25px;
 }
@@ -122,6 +122,7 @@ select {
 #header-banner {
     background: linear-gradient(to top, rgba(0,0,0,0.8) 100%, transparent), 
         url('../images/Background-image.jpg');
+    background-attachment: fixed;
 
     width: 100vw;
     padding: 180px 0;
@@ -278,7 +279,7 @@ h2.title {
 .card-2 figure img {
     max-width: 100%;
     height: auto;
-    max-height: 500px;
+    max-height: 400px;
     
     object-fit: cover;
     object-position: center;
@@ -346,8 +347,7 @@ h2.title {
 .card-3 figure img {
     max-width: 100%;
     height: auto;
-    max-height: 500px;
-    
+    max-height: 178px;
     object-fit: cover;
     object-position: center;
     transition: ease all .2s;
@@ -416,9 +416,11 @@ h2.title {
 }
 
 /* Form visualizar */
+#form-visualizar {
+    margin-bottom: 20px;
+}
 #form-visualizar button {
     background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
-    margin-bottom: 20px;
 }
 
 /* Idade \ Comuna \CopiarURL */

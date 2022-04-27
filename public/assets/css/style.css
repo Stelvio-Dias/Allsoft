@@ -66,10 +66,6 @@ select {
 }
 
 
-
-
-
-
 /* Footer */
 #footer .footer-title .title {
     font-size: 24px;
@@ -121,7 +117,7 @@ select {
 /* HEader BANNER */
 #header-banner {
     background: linear-gradient(to top, rgba(0,0,0,0.8) 100%, transparent), 
-        url('../images/Background-image.jpg');
+        url('../images/bg-image.jpg');
     background-attachment: fixed;
 
     width: 100vw;

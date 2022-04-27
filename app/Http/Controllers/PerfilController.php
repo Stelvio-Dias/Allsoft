@@ -65,7 +65,7 @@ class PerfilController extends Controller
         $comentario->save();
 
         return redirect()->back()
-        ->with('sucesso', 'Comentado com sucesso');
+            ->with('sucesso', 'Comentado com sucesso');
     }
 
     public function deletarComentario(Request $request) {

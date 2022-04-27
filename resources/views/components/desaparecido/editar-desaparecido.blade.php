@@ -15,7 +15,7 @@
                     <div class="row">
 
                         {{-- Nome --}}
-                        <label class="col-12 col-md-6 col-lg-4">
+                        <label class="col-12 col-md-6 col-lg-4 mb-4 mb-md-auto">
                             <p>Nome Completo</p>
                             <div class="input-group">
                                 <span class="input-group-text">
@@ -26,7 +26,7 @@
                         </label>
 
                         {{-- Data de Nascimento --}}
-                        <label class="col-12 col-md-6 col-lg-4">
+                        <label class="col-12 col-md-6 col-lg-4 mb-4 mb-md-auto">
                             <p>Data de Nascimento</p>
                             <div class="input-group">
                                 <span class="input-group-text">
@@ -37,7 +37,7 @@
                         </label>
 
                         {{-- Imagem --}}
-                        <label class="col-12 col-md-6 col-lg-4">
+                        <label class="col-12 col-md-6 col-lg-4 mb-4 mb-md-auto">
                             <p>Imagem</p>
                             <input type="file" name="imagem" class="form-control">
                         </label>
@@ -45,10 +45,10 @@
 
 
                     {{-- Email \ Telemovel1 \ Telemovel2 --}}
-                    <div class="row mt-4">
+                    <div class="row mt-md-4">
 
                         {{-- Email --}}
-                        <label class="col-12 col-md-6 col-lg-4">
+                        <label class="col-12 col-md-6 col-lg-4 mb-4 mb-md-auto">
                             <p>Email</p>
                             <div class="input-group">
                                 <span class="input-group-text">
@@ -59,7 +59,7 @@
                         </label>
 
                         {{-- Telemovel 1 --}}
-                        <label class="col-12 col-md-6 col-lg-4">
+                        <label class="col-12 col-md-6 col-lg-4 mb-4 mb-md-auto">
                             <p>Telemovel 1</p>
                             <div class="input-group">
                                 <span class="input-group-text">
@@ -70,7 +70,7 @@
                         </label>
 
                         {{-- Telemovel 2 --}}
-                        <label class="col-12 col-md-6 col-lg-4">
+                        <label class="col-12 col-md-6 col-lg-4 mb-4 mb-md-auto">
                             <p>Telemovel 2</p>
                             <div class="input-group">
                                 <span class="input-group-text">
@@ -83,10 +83,10 @@
 
 
                     {{-- Comuna \ Altura \ Peso --}}
-                    <div class="row mt-4">
+                    <div class="row mt-md-4">
                         
                         {{-- Comuna --}}
-                        <label class="col-12 col-md-6 col-lg-4">
+                        <label class="col-12 col-md-6 col-lg-4 mb-4 mb-md-auto">
                             <p>Local de Desaparecimento</p>
                             <div class="input-group">
                                 <span class="input-group-text">
@@ -106,7 +106,7 @@
                         </label>
 
                         {{-- Altura --}}
-                        <label class="col-12 col-md-6 col-lg-4">
+                        <label class="col-12 col-md-6 col-lg-4 mb-4 mb-md-auto">
                             <p>Altura(CM)</p>
                             <div class="input-group">
                                 <span class="input-group-text">
@@ -117,7 +117,7 @@
                         </label>
 
                         {{-- Peso --}}
-                        <label class="col-12 col-md-6 col-lg-4">
+                        <label class="col-12 col-md-6 col-lg-4 mb-4 mb-md-auto">
                             <p>Peso (KG)</p>
                             <div class="input-group">
                                 <span class="input-group-text">
@@ -129,10 +129,10 @@
                     </div>
 
                     {{-- Status \ Aprovado --}}
-                    <div class="row mt-4">
+                    <div class="row mt-md-4">
 
                         {{-- Status --}}
-                        <div class="col-12 col-md-6 col-lg-4">
+                        <div class="col-12 col-md-6 col-lg-4 mb-4 mb-md-auto">
                             <p class="mb-0">Status</p>
                             
                             <select name="status" class="form-select">
@@ -154,7 +154,7 @@
 
                         @if(Auth::user()->admin == true)
                         {{-- Aprovado --}}
-                        <label class="col-12 col-md-6 col-lg-4">
+                        <label class="col-12 col-md-6 col-lg-4 mb-4 mb-md-auto">
                             <p>Aprovado</p>
                             <div class="input-group">
                                 <span class="input-group-text">
@@ -181,10 +181,9 @@
 
                     </div>
 
-
                     {{-- Descrição --}}
-                    <div class="row mt-4">
-                        <label class="col-12">
+                    <div class="row mt-md-4">
+                        <label class="col-12 mb-4 mb-md-auto">
                             <p>Descrição</p>
                             <textarea name="descricao" class="form-control" placeholder="Descrição">{{ $item->descricao->descricao ?? '' }}</textarea>
                         </label>

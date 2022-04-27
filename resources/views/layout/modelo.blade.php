@@ -99,7 +99,7 @@
                         <div class="footer-title">
                             <h4 class="title">Sobre Nós</h4>
                             <p>
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsa quod ducimus aliquam temporibus, iusto veniam culpa nemo accusantium odio voluptatum et laborum dolore facilis? Tenetur.
+                                Trabalho de fim de curso apresentado à Coordenação do Curso de Informática do Complexo Escolar Girassol como requisito para obtenção do grau de Técnico Médio de Informática.
                             </p>
                         </div>
 
@@ -108,7 +108,7 @@
 
                             <form action="{{ route('newsletter') }}" method="POST">
                                 @csrf
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur harum quod.</p>
+                                <p>Assine a nossa newsletter.</p>
                                 <div class="row">
                                     <div class="col-9 pe-0">
                                         <input type="email" name="email" placeholder="Email" class="form-control rounded-0">
@@ -149,7 +149,7 @@
                 
                 <div class="footer-title">
                     <h4 class="title">Envie uma mensagem</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure quas eum quos magni voluptatibus eius iusto incidunt possimus? Explicabo, necessitatibus.</p>
+                    <p>Entre em contacto conosco.</p>
                 </div>
 
                 <form action="{{ route('mensagem') }}" method="POST">

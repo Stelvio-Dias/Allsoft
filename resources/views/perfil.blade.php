@@ -9,7 +9,7 @@
         <div class="row">
 
             {{--  Perfis --}}
-            <section class="col-12 col-md-8 pe-md-5 pe-0">
+            <section class="col-12 col-md-8 pe-md-5 pe-auto">
 
                 <section id="perfil">
 
@@ -26,13 +26,22 @@
                     {{-- Quantidade Visualizacoes --}}
                     <p>{{$desaparecido->vizualizacoes_qtd}} Visualizações</p>
 
-                    {{-- Formulario para visualizar --}}
+                    {{-- Formulario para visualizar | ligar para o responsavel --}}
                     @if(Auth::check() == true)
-                    {{-- Ligar --}}
-                    <a href="tel:923601472" class="btn btn-success">
-                        <i class="fas fa-phone"></i>
-                        Ligar
-                    </a>
+
+                    @if($desaparecido->responsavelTelemovel1 != null)
+                        <a href="tel:{{$desaparecido->responsavelTelemovel1->telemovel}}" class="btn btn-success">
+                            <i class="fas fa-phone"></i>
+                            Ligar
+                        </a>
+                    @endif
+
+                    @if($desaparecido->responsavelTelemovel2 != null)
+                        <a href="tel:{{$desaparecido->responsavelTelemovel2->telemovel}}" class="btn btn-success">
+                            <i class="fas fa-phone"></i>
+                            Ligar
+                        </a>
+                    @endif
 
                     <form action="{{route('perfil.visualizar')}}" class="d-inline-block" method="POST" id="form-visualizar">
                         @csrf

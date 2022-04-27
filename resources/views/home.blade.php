@@ -31,14 +31,16 @@
         <div class="row">
 
             {{-- Desaparecidos Perfis --}}
-            <section class="col-12 col-md-8 pe-md-5 pe-0">
+            <section class="col-12 col-md-8 pe-md-5 pe-auto">
                 <h2 class="title">Desaparecidos</h2>
 
-                @foreach($desaparecidos_perfis as $item)
-                    @component('components.card.card1')
-                        @slot('item', $item)
-                    @endcomponent
-                @endforeach
+                <div class="">
+                    @foreach($desaparecidos_perfis as $item)
+                        @component('components.card.card1')
+                            @slot('item', $item)
+                        @endcomponent
+                    @endforeach
+                </div>
 
                 {{ $desaparecidos_perfis->links() }}
 

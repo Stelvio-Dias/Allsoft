@@ -10,6 +10,7 @@ class HomeController extends Controller
     public function index() {
         // Perfis dos desaparecidos
         $desaparecidos_perfis = Desaparecido::where('aprovado', '1')
+            ->where('status', false)
             ->orderBy('created_at', 'desc')
             ->paginate(5);
 

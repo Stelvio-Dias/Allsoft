@@ -6,7 +6,7 @@
 {{-- Body --}}
 @section('body')
 
-<form action="{{ route('login-action') }}" method="POST">
+<form action="{{ route('login-action') }}" method="POST" autocomplete="off">
     @csrf
     
     <div class="">

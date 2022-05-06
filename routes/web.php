@@ -18,13 +18,12 @@ use Illuminate\Support\Facades\Route;
 Route::redirect('/', 'home');
 Route::get('home', 'HomeController@index')->name('home');
 
+
 // Rota da pagina perfil
 Route::get('perfil/{id}', 'PerfilController@index')->name('perfil');
 Route::post('perfil/visualizar', 'PerfilController@visualizar')->name('perfil.visualizar');
 Route::post('perfil/comentar', 'PerfilController@comentar')->name('perfil.comentar');
 Route::post('perfil/comentario/deletar', 'PerfilController@deletarComentario')->name('perfil.comentario.deletar');
-
-
 
 
 // Rota da pagina faq
@@ -36,7 +35,7 @@ Route::get('pesquisa', 'PesquisaController@index')->name('pesquisa');
 
 // Footer action
 Route::post('newsletter', 'FooterController@newsletter')->name('newsletter');
-Route::post('mensagem', 'FooterController@mensagem')->name('mensagem');
+Route::get('mensagem', 'FooterController@mensagem')->name('mensagem');
 
 
 // Autenticação
@@ -59,7 +58,6 @@ Route::prefix('dashboard')->group(function() {
 
     
     // Comunas
-
     //cadastrar comuna
     Route::post('comuna/cadastrar', 'Dashboard\ComunaController@cadastrar')->name('dashboard.comuna.cadastrar');
 
@@ -71,12 +69,10 @@ Route::prefix('dashboard')->group(function() {
 
 
     // Usuarios
-
     // editar permissão
     Route::post('user/editar-permissao', 'Dashboard\UserController@editarPermissao')->name('dashboard.user.editar-permissao');
     // configuração
     Route::post('user/configuracao', 'Dashboard\UserController@configuracao')->name('dashboard.user.configuracao');
-
 
 
     // Desaparecidods
@@ -91,7 +87,4 @@ Route::prefix('dashboard')->group(function() {
 
     // Check Mate
     Route::get('check-mate', 'Dashboard\CheckMateController@index')->name('dashboard.check-mate');
-
 });
-
-

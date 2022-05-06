@@ -116,9 +116,12 @@ select {
 
 /* HEader BANNER */
 #header-banner {
-    background: linear-gradient(to top, rgba(0,0,0,0.8) 100%, transparent), 
-        url('../images/bg-image.jpg');
+    /* background: linear-gradient(to top, rgba(0,0,0,0.8) 100%, transparent), 
+        url('../images/fundo.jpg'); */
+    background: url('../images/fundo.jpg');
     background-attachment: fixed;
+    background-position-y: bottom;
+    background-size: cover;
 
     width: 100vw;
     padding: 180px 0;

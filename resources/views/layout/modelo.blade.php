@@ -152,7 +152,7 @@
                     <p>Entre em contacto conosco.</p>
                 </div>
 
-                <form action="{{ route('mensagem') }}" method="POST">
+                <form action="{{ route('mensagem') }}" method="GET">
                     @csrf
 
                     {{-- Nome --}}

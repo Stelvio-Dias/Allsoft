@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Mensagem;
 use App\Models\Newsletter;
 use Illuminate\Http\Request;
-use App\Models\AssuntoMensagem;
+use App\Mail\Mensagem;
+use Illuminate\Support\Facades\Mail;
+
 
 class FooterController extends Controller
 {
@@ -26,7 +27,9 @@ class FooterController extends Controller
             "mensagem" => ["required", "string", "min:2"]
         ]);
 
+        Mail::to(env('MAIL_USERNAME'))->send(new Mensagem($data));
+
         return redirect()->back()
-            ->with('sucesso', 'Mensagem enviada com sucesso');
+            ->with('sucesso', 'Email enviado com sucesso');
     } 
 }

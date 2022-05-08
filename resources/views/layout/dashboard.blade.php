@@ -166,6 +166,11 @@
     
 @endcomponent
 
+{{-- Component deletar conta --}}
+@component('components.usuario.deletar-conta')
+    
+@endcomponent
+
 {{-- Component Terminar sessão --}}
 @component('components.usuario.terminar-sesssao')
     

@@ -73,6 +73,8 @@ Route::prefix('dashboard')->group(function() {
     Route::post('user/editar-permissao', 'Dashboard\UserController@editarPermissao')->name('dashboard.user.editar-permissao');
     // configuração
     Route::post('user/configuracao', 'Dashboard\UserController@configuracao')->name('dashboard.user.configuracao');
+    // Deletar conta
+    Route::post('user/deletar-conta', 'Dashboard\UserController@deletarConta')->name('dashboard.user.deletar-conta');
 
 
     // Desaparecidods

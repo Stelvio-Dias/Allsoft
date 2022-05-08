@@ -96,6 +96,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-danger" id="usuario-deletar-conta" data-bs-toggle="modal" data-bs-target="#deletar-conta">Deletar conta</button>
                 <button type="submit" class="btn btn-success" id="usuario-configuracao-form-btn">Salvar</button>
             </div>
 

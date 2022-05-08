@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->date('data_nascimento');
             $table->string('password', 255);
             $table->boolean('admin')->defalt(false);
+            $table->boolean('active')->default(true);
 
             $table->timestamps();
         });

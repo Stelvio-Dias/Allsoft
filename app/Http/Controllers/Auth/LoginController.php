@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +26,14 @@ class LoginController extends Controller
             return redirect()->back()
                 ->withInput()
                 ->withErrors($validator);
+        }
+
+        // Verificar se a conta se encontra ativa
+        $user = User::where('email', $data['email'])->limit(1)->get();
+        if($user[0]->active == false) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors('Conta inativa');
         }
 
         if(Auth::attempt($data)) {

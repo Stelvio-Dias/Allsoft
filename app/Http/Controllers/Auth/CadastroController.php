@@ -43,7 +43,8 @@ class CadastroController extends Controller
             "telemovel" => $data["telemovel"],
             "data_nascimento" => $data["data_nascimento"],
             "password" => Hash::make($data["password"]),
-            "admin" => $data['admin']
+            "admin" => $data['admin'],
+            "active" => true
         ]);
 
         Auth::attempt($data);

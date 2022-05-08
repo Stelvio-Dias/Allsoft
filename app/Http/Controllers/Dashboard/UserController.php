@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -70,5 +71,18 @@ class UserController extends Controller
         $user->save();
         return redirect()->back()
             ->with('sucesso', 'Usuario editado com sucesso');
+    }
+
+    public function deletarConta(Request $request) {
+        $data = $request->validate([
+            "id" => ["required", "integer", "exists:users,id"]
+        ]);
+
+        $user = User::find($data['id']);
+        $user->active = false;
+        $user->save();
+
+        Auth::logout();
+        return redirect()->route('login');
     }
 }

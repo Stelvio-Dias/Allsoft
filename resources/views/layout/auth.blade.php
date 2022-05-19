@@ -32,6 +32,12 @@
 
 </div> 
 
+<div class="logo">
+    <a href="{{ route('home') }}">
+        <h1>{{ env('APP_NAME') }}</h1>  
+    </a>
+</div>
+
 <main>
     @yield('body')
 </main>

@@ -15,6 +15,10 @@ class FooterController extends Controller
             "email" => ["required", "email", "min:3", "max:100"]
         ]);
 
+        $newsletter = new Newsletter();
+        $newsletter->email = $data['email'];
+        $newsletter->save();
+
         return redirect()->back()
             ->with('sucesso', 'Newsletter assinada com sucesso');
     }

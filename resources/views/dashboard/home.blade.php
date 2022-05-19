@@ -126,7 +126,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($desaparecidos_query as $item)
+                    @forelse($desaparecidos_query as $item)
                     <tr>
                         <td>{{$item->id}}</td>
                         <td data-bs-toggle="modal" data-bs-target="#imagem-{{$item->id}}">
@@ -154,7 +154,9 @@
                             </a>
                         </td>
                     </tr>
-                    @endforeach
+                    @empty
+                    <td class="text-center">Nenhum (0) resultado encontrado</td>
+                    @endforelse
                 </tbody>
             </table>
         </div>

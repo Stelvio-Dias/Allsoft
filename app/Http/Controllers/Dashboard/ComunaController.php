@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Models\Comuna;
+use App\Models\Desaparecido;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +31,13 @@ class ComunaController extends Controller
         ]);
 
         $comuna = Comuna::find($data['id']);
+        $desaparecido = Desaparecido::where('comuna_id', $comuna->id)->get();
+        
+        if(is_null($desaparecido) == false) {
+            return redirect()->back()
+                ->withErrors('Não é possivel deletar está comuna');
+        }
+
         $comuna->delete();
 
         return redirect()->back()

@@ -17,7 +17,7 @@
                     {{-- Nome \ Data de Nascimento --}}
                     <div class="row">
                         {{-- Nome --}}
-                        <div class="col-md-6 col-12">
+                        <div class="col-md-6 col-12 mb-3">
                             <p class="mb-1">Nome</p>
                             <label class="input-group">
                                 <span class="input-group-text">
@@ -28,7 +28,7 @@
                         </div>
 
                         {{-- Data de nascimento --}}
-                        <div class="col-md-6 col-12">
+                        <div class="col-md-6 col-12 mb-3">
                             <p class="mb-1">Data de Nascimento</p>
                             <label class="input-group">
                                 <span class="input-group-text">
@@ -40,9 +40,9 @@
                     </div>
 
                     {{-- Email \ Telemovel --}}
-                    <div class="row mt-4">
+                    <div class="row">
                         {{-- Email --}}
-                        <div class="col-md-6 col-12">
+                        <div class="col-md-6 col-12 col-12 mb-3">
                             <p class="mb-1">Email</p>
                             <label class="input-group">
                                 <span class="input-group-text">
@@ -53,7 +53,7 @@
                         </div>
 
                         {{-- telemovel --}}
-                        <div class="col-md-6 col-12">
+                        <div class="col-md-6 col-12 col-12 mb-3">
                             <p class="mb-1">Telemovel</p>
                             <label class="input-group">
                                 <span class="input-group-text">
@@ -65,11 +65,11 @@
                     </div>
 
                     {{-- Old password \ password --}}
-                    <div class="row mt-4">
+                    <div class="row">
                         <p class="mb-1">(Para alterar a palavra passe preencha ambos os campos)</p>
 
                         {{-- Old password --}}
-                        <div class="col-md-6 col-12">
+                        <div class="col-md-6 col-12 col-12 mb-3">
                             <p class="mb-1">Password Antiga</p>
                             <label class="input-group">
                                 <span class="input-group-text">
@@ -80,7 +80,7 @@
                         </div>
 
                         {{-- Password --}}
-                        <div class="col-md-6 col-12">
+                        <div class="col-md-6 col-12 col-12 mb-3">
                             <p class="mb-1">Password Nova</p>
                             <label class="input-group">
                                 <span class="input-group-text">

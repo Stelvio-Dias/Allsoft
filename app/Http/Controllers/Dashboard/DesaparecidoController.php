@@ -111,7 +111,7 @@ class DesaparecidoController extends Controller
         // Descrição
         if($request->filled('descricao')) {
             $descricao = $request->validate([
-                "descricao" => ["required", "string", "min:230"]
+                "descricao" => ["required", "string", "min:1"]
             ]);
 
             Descricao::create([
@@ -141,31 +141,19 @@ class DesaparecidoController extends Controller
         $desaparecido = Desaparecido::find($data['id']);
 
         // Responsavel telemovel 1
-        if(is_null($desaparecido->responsavel_telemovel1_id) == false) {
-            ResponsavelTelemovel::find($desaparecido->responsavel_telemovel1_id)
+        ResponsavelTelemovel::where('id', $desaparecido->responsavel_telemovel1_id)
             ->delete();
-        }
 
 
         // Responsavel telemovel 2
-        if(is_null($desaparecido->responsavel_telemovel2_id) == false) {
-            ResponsavelTelemovel::find($desaparecido->responsavel_telemovel2_id)
+        ResponsavelTelemovel::where('id', $desaparecido->responsavel_telemovel2_id)
             ->delete();
-        }
 
         // Descrição
-        $descricao = Descricao::where('desaparecido_id', $desaparecido->id)->get();
-
-        if(count($descricao) > 0) {
-            $descricao->delete();
-        }
+        Descricao::where('desaparecido_id', $desaparecido->id)->delete();
 
         // Comentarios
-        $comentarios = Comentario::where('desaparecido_id', $desaparecido->id)->get();
-
-        if(count($comentarios) > 0) {
-            $comentarios->delete();
-        }
+        Comentario::where('desaparecido_id', $desaparecido->id)->delete();
 
         // Apagar a imagem
         unlink("desaparecidos/{$desaparecido->imagem}");
@@ -300,7 +288,7 @@ class DesaparecidoController extends Controller
         // Descricao
         if($request->filled('descricao')) {
             $descricao = $request->validate([
-                "descricao" => ["required", "string", "min:230"]
+                "descricao" => ["required", "string", "min:1"]
             ]);
 
             Descricao::updateOrCreate(

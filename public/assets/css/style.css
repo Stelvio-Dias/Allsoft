@@ -129,6 +129,7 @@ select {
 }
 #header-banner h2 {
     color: #FFF;
+    text-shadow: 2px 2px #000;
     font-family: 'poppins-bold';
     font-size: 30px;
     margin-bottom: 10px;

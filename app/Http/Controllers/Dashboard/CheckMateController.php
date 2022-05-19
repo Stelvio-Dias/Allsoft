@@ -39,13 +39,15 @@ class CheckMateController extends Controller
     public function index() {
         set_time_limit(0);
 
-        for($a = 1; $a <= 100; $a++) {
+        for($a = 1; $a <= 50; $a++) {
             // Processamento da imagem
             $nome_img = md5(Hash::make(time()));
             $nome_final = $nome_img . ".jpg";
 
             $image = Image::make("old/{$a}.jpg");
-            $image->resize(700, 474);
+            $image->resize(700, 474, function($img) {
+                $img->aspectRatio();
+            });
             $image->save("desaparecidos/{$nome_final}");
 
             $nome = $this->nome();

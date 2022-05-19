@@ -52,7 +52,7 @@
                     </form>
 
                     @else
-                    <p class="text-danger">Faça <a href="{{route('login')}}">Login</a> para ligar e visualizar</p>
+                    <p class="text-danger">Faça <a href="{{route('login')}}" target="_blank">Login</a> para ligar e visualizar</p>
                     @endif
 
                     {{-- Idade | comuna | Copiar URL --}}

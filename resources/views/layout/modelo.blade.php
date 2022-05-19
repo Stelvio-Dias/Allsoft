@@ -41,7 +41,7 @@
                         <a class="nav-link" href="#footer" title="Enviar uma mensagem">Contacto</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link bg-primary rounded-pill btn-pill" href="{{route('faq')}}" title="Perguntas frequestementes perguntadas">faq</a>
+                        <a class="nav-link bg-primary rounded-pill btn-pill" href="{{route('faq')}}" title="Perguntas frequentementes perguntadas">faq</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-lg-4 mt-3 mt-lg-0">

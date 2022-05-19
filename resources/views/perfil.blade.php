@@ -70,7 +70,7 @@
                         </div>
 
                         {{-- Copiar URL --}}
-                        <div class="col">
+                        <div class="col" id="copiar-url">
                             <i class="fas fa-clipboard-list icon"></i>
                             <p>Copiar URL</p>
                         </div>

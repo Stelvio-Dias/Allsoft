@@ -405,6 +405,9 @@ h2.title {
 #main-area #perfil figure img:hover {
     transform: scale(1.2);
 }
+#main-area #perfil #copiar-url {
+    cursor: pointer;
+}
 
 /* Corpo */
 #main-area #perfil h1 {

@@ -29,8 +29,8 @@ class LoginController extends Controller
         }
 
         // Verificar se a conta se encontra ativa
-        $user = User::where('email', $data['email'])->limit(1)->get();
-        if($user[0]->active == false) {
+        $user = User::where('email', $data['email'])->first();
+        if(is_null($user) == false AND $user->active == false) {
             return redirect()->back()
                 ->withInput()
                 ->withErrors('Conta inativa');

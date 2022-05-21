@@ -30,6 +30,13 @@
         @endforeach
     @endif
 
+    @if(session('sucesso'))
+    <div class="alert alert-success alert-dismissible">
+        <strong>Parabéns! </strong>{{ session('sucesso') }}
+        <button type="button" class="bt btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    @endif
+
 </div> 
 
 <div class="logo">

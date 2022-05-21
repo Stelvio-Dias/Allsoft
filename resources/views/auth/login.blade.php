@@ -16,7 +16,6 @@
 
     {{-- Email --}}
     <div class="row">
-        <div class="col-12">
             <div class="input-group">
                 <span class="input-group-text">
                     <i class="fas fa-envelope icon"></i>
@@ -56,7 +55,7 @@
             </a>
         </p>
         <p class="">
-            <a href="{{route('cadastro')}}">
+            <a href="{{route('password')}}">
                 Esqueceu a senha?
             </a>
         </p>

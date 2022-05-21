@@ -31,7 +31,7 @@ class ComunaController extends Controller
         ]);
 
         $comuna = Comuna::find($data['id']);
-        $desaparecido = Desaparecido::where('comuna_id', $comuna->id)->get();
+        $desaparecido = Desaparecido::where('comuna_id', $comuna->id)->first();
         
         if(is_null($desaparecido) == false) {
             return redirect()->back()

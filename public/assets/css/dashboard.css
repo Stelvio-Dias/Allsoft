@@ -16,13 +16,15 @@ select {
 
 /* Erros */
 .erros {
-    position: absolute;
     right: 10px;
     top: 80px;
+    position: fixed;
+    z-index: 10;
 }
 .erros .alert {
     z-index: 999999999999999999999999999999;
-    width: 400px;
+    max-width: 400px;
+    width: 100%;
 }
 
 h2.title {
@@ -146,4 +148,11 @@ table tbody td {
 }
 .modal form .icon {
     color: #212529;
+}
+
+@media only screen and (max-width: 400px) {
+    .erros {
+        left: 10px;
+        max-width: 100%;
+    }
 }

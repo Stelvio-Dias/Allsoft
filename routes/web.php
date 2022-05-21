@@ -45,6 +45,12 @@ Route::post('login-action', 'Auth\LoginController@loginAction')->name('login-act
 // Terminar sessão
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
+// Alterar senha
+Route::get('esqueceu-password', 'Auth\LoginController@esqueceuPassword')->name('password');
+Route::post('esqueceu-senha', 'Auth\LoginController@esqueceuPasswordAction')->name('password-action');
+Route::get('alterar-senha/{token}', 'Auth\loginController@alterarSenha')->name('password.reset');
+Route::post('alterar-senha', 'Auth\LoginController@alterarSenhaAction')->name('password.update');
+
 
 // Cadastro
 Route::get('cadastro', 'Auth\CadastroController@index')->name('cadastro');

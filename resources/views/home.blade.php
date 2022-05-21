@@ -82,8 +82,6 @@
 </section>
 {{-- !Main Area --}}
 
-
-
 {{-- Mais Antigos --}}
 <section id="mais-antigos" class="mt-5">
     <div class="container">
@@ -103,7 +101,5 @@
 
     </div>
 </section>
-
-
 
 @endsection

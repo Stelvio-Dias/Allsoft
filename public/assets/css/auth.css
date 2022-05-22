@@ -47,6 +47,12 @@ body {
     font-family: 'poppins-regular';
 }
 
+main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 form {
     width: 380px;
     background-color: #fff;
@@ -102,5 +108,10 @@ form .links p a {
         left: 10px;
         top: 10px !important;
         max-width: 100%;
+    }
+
+    form {
+        max-width: none;
+        width: 92%;
     }
 }

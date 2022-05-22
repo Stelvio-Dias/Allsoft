@@ -48,7 +48,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 // Alterar senha
 Route::get('esqueceu-password', 'Auth\LoginController@esqueceuPassword')->name('password');
 Route::post('esqueceu-senha', 'Auth\LoginController@esqueceuPasswordAction')->name('password-action');
-Route::get('alterar-senha/{token}', 'Auth\loginController@alterarSenha')->name('password.reset');
+Route::get('alterar-senha/{token}', 'Auth\LoginController@alterarSenha')->name('password.reset');
 Route::post('alterar-senha', 'Auth\LoginController@alterarSenhaAction')->name('password.update');
 
 

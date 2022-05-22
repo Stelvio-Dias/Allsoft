@@ -2,7 +2,7 @@
     {{-- Img --}}
     <figure>
         <img 
-        data-src="{{ url("desaparecidos/{$item->imagem}") }}" 
+        src="{{ url("desaparecidos/{$item->imagem}") }}" 
         alt="Imagem de {{$item->nome}}"
         loading="lazy">
     </figure>

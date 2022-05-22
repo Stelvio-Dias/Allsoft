@@ -492,10 +492,14 @@ h2.title {
 
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 500px) {
     .erros {
         left: 10px;
         top: 10px !important;
         max-width: 100%;
+    }
+
+    #header-banner {
+       background: #111314;
     }
 }

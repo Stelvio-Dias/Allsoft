@@ -34,7 +34,6 @@ Route::get('pesquisa', 'PesquisaController@index')->name('pesquisa');
 
 
 // Footer action
-Route::post('newsletter', 'FooterController@newsletter')->name('newsletter');
 Route::post('mensagem', 'FooterController@mensagem')->name('mensagem');
 
 

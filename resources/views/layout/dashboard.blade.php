@@ -30,11 +30,8 @@
             <i class="fas fa-bars icon"></i>
         </button>
 
-        <h1>Home</h1>
-
         <h3>{{Auth::user()->nome}}</h3>
-
-
+        
     </div>
 
 </header>

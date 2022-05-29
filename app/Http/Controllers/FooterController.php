@@ -31,7 +31,7 @@ class FooterController extends Controller
             "mensagem" => ["required", "string", "min:2"]
         ]);
 
-        Mail::to(env('MAIL_USERNAME'))->send(new Mensagem($data));
+        Mail::to(env('MAIL_FROM_ADDRESS'))->send(new Mensagem($data));
 
         return redirect()->back()
             ->with('sucesso', 'Email enviado com sucesso');

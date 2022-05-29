@@ -70,12 +70,12 @@
 
                         {{-- Old password --}}
                         <div class="col-md-6 col-12 col-12 mb-3">
-                            <p class="mb-1">Password Antiga</p>
+                            <p class="mb-1">Password Atual</p>
                             <label class="input-group">
                                 <span class="input-group-text">
                                     <i class="fas fa-lock icon"></i>
                                 </span>
-                                <input type="password" name="old_password" placeholder="Password Antiga" class="form-control">
+                                <input type="password" name="old_password" placeholder="Password Atual" class="form-control">
                             </label>
                         </div>
 

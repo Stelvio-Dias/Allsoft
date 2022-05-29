@@ -35,7 +35,7 @@ Route::get('pesquisa', 'PesquisaController@index')->name('pesquisa');
 
 // Footer action
 Route::post('newsletter', 'FooterController@newsletter')->name('newsletter');
-Route::get('mensagem', 'FooterController@mensagem')->name('mensagem');
+Route::post('mensagem', 'FooterController@mensagem')->name('mensagem');
 
 
 // Autenticação

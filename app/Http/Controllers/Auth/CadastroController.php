@@ -11,15 +11,18 @@ use Illuminate\Support\Facades\Validator;
 
 class CadastroController extends Controller
 {
+    // Cadastrar view
     public function index() {
         return view('auth.cadastro');
     }
 
+    // Cadastrar action
     public function cadastrarAction(Request $request) {
         $data = $request->only([
             "nome", "email", "telemovel", "data_nascimento", "password", "password_confirmation"
         ]);
 
+        // Fazer a validação
         $validator = $this->validator($data);
 
         if($validator->fails()) {
@@ -29,6 +32,7 @@ class CadastroController extends Controller
                 ->withErrors($validator);
         }
 
+        // Verifico se há algum usuário logado
         $user = User::all();
 
         if(count($user) == 0) {
@@ -37,6 +41,7 @@ class CadastroController extends Controller
             $data['admin'] = false;
         }
 
+        // Cadastro o usuário
         User::create([
             "nome" => $data["nome"],
             "email" => $data["email"],
@@ -47,11 +52,13 @@ class CadastroController extends Controller
             "active" => true
         ]);
 
+        // Login
         Auth::attempt($data);
 
         return redirect()->route('dashboard.home');
     }
 
+    // Validação
     public function validator(Array $data) {
         return Validator::make($data, [
             "nome" => ["required", "string", "min:4", "max:50"],

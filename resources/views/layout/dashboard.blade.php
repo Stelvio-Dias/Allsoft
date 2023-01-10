@@ -37,7 +37,7 @@
 </header>
 
 
-{{-- Offcanvas --}}
+{{-- Offcanvas ou menu lateral --}}
 <div class="offcanvas offcanvas-start bg-dark" id="menu" >
     <div class="offcanvas-header">
         <a href="{{route('home')}}" title="Ir para a página principal">
@@ -121,7 +121,7 @@
     </div>
 </div>
 
-
+{{-- Sessão onde exibimos os erros/avisos --}}
 <div class="erros">
 
     @if($errors->any())
@@ -154,83 +154,83 @@
 </main>
 
 {{-- ~xxxxxxxxxxxxx USers xxxxxxxxxxxx --}}
-{{-- Component Editar permissão --}}
-@component('components.usuario.editar-permicao')
-    @slot('users', $users)
-@endcomponent
-{{-- Component Usuario Configuração --}}
-@component('components.usuario.usuario-configuracao')
-    
-@endcomponent
+    {{-- Component Editar permissão --}}
+    @component('components.usuario.editar-permicao')
+        @slot('users', $users)
+    @endcomponent
+    {{-- Component Usuario Configuração --}}
+    @component('components.usuario.usuario-configuracao')
+        
+    @endcomponent
 
-{{-- Component deletar conta --}}
-@component('components.usuario.deletar-conta')
-    
-@endcomponent
+    {{-- Component deletar conta --}}
+    @component('components.usuario.deletar-conta')
+        
+    @endcomponent
 
-{{-- Component Terminar sessão --}}
-@component('components.usuario.terminar-sesssao')
-    
-@endcomponent
+    {{-- Component Terminar sessão --}}
+    @component('components.usuario.terminar-sesssao')
+        
+    @endcomponent
 
 
 {{--XXXXXXXXXXXXXXXX Comunas XXXXXXXXXXXXXXXXXXXX--}}
 
-{{-- Component Comunas --}}
-@component('components.comuna.comuna')
-    @slot('comunas', $comunas)
-@endcomponent
-
-@foreach($comunas as $item)
-    {{-- Editar comuna --}}
-    @component('components.comuna.editar-comuna')
-        @slot('item', $item)
+    {{-- Component Comunas --}}
+    @component('components.comuna.comuna')
+        @slot('comunas', $comunas)
     @endcomponent
 
+    @foreach($comunas as $item)
+        {{-- Editar comuna --}}
+        @component('components.comuna.editar-comuna')
+            @slot('item', $item)
+        @endcomponent
 
-    {{-- Deletar Comuna --}}
-    @component('components.comuna.deletar-comuna')
-        @slot('item', $item)
-    @endcomponent
-@endforeach
 
-
-{{-- XXXXXXXXXXXXXXXXX DESAPARECIDOS XXXXXXXXXXXXXX --}}
-@if(Auth::user()->admin == true)
-    {{-- Component Pedido --}}
-    @component('components.pedido.pedido')
-        @slot('pedidos', $pedidos)
-    @endcomponent
-
-    @foreach ($pedidos as $item)
-        @component('components.desaparecido.exibir-imagem')
+        {{-- Deletar Comuna --}}
+        @component('components.comuna.deletar-comuna')
             @slot('item', $item)
         @endcomponent
     @endforeach
-@endif
 
-{{-- Component Cadastrar desaparecido --}}
-@component('components.desaparecido.cadastrar-desaparecido')
-    @slot('comunas', $comunas)
-@endcomponent
 
-@foreach($desaparecidos_query as $item)
-    {{-- Component Exibir imagem --}}
-    @component('components.desaparecido.exibir-imagem')
-        @slot('item', $item)
-    @endcomponent
+{{-- XXXXXXXXXXXXXXXXX DESAPARECIDOS XXXXXXXXXXXXXX --}}
+    @if(Auth::user()->admin == true)
+        {{-- Component Pedido --}}
+        @component('components.pedido.pedido')
+            @slot('pedidos', $pedidos)
+        @endcomponent
 
-    {{-- Component Deletar Desaparecido --}}
-    @component('components.desaparecido.deletar-desaparecido')
-        @slot('item', $item)
-    @endcomponent
+        @foreach ($pedidos as $item)
+            @component('components.desaparecido.exibir-imagem')
+                @slot('item', $item)
+            @endcomponent
+        @endforeach
+    @endif
 
-    {{-- Component Editar desaparecido --}}
-    @component('components.desaparecido.editar-desaparecido')
-        @slot('item', $item)
+    {{-- Component Cadastrar desaparecido --}}
+    @component('components.desaparecido.cadastrar-desaparecido')
         @slot('comunas', $comunas)
     @endcomponent
-@endforeach
+
+    @foreach($desaparecidos_query as $item)
+        {{-- Component Exibir imagem --}}
+        @component('components.desaparecido.exibir-imagem')
+            @slot('item', $item)
+        @endcomponent
+
+        {{-- Component Deletar Desaparecido --}}
+        @component('components.desaparecido.deletar-desaparecido')
+            @slot('item', $item)
+        @endcomponent
+
+        {{-- Component Editar desaparecido --}}
+        @component('components.desaparecido.editar-desaparecido')
+            @slot('item', $item)
+            @slot('comunas', $comunas)
+        @endcomponent
+    @endforeach
     
 <script src="{{ url("assets/lib/bootstrap/js/bootstrap.min.js") }}"></script>
 <script src="{{ url("assets/lib/fontawesome/js/all.min.js") }}"></script>

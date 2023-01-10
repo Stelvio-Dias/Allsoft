@@ -73,6 +73,7 @@ class UserController extends Controller
             ->with('sucesso', 'Usuario editado com sucesso');
     }
 
+    // Deletar conta
     public function deletarConta(Request $request) {
         $data = $request->validate([
             "id" => ["required", "integer", "exists:users,id"]

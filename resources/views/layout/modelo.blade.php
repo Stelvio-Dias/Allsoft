@@ -139,6 +139,9 @@
                                 <li>
                                     <a href="{{route('login')}}" title="Logar">Login</a>
                                 </li>
+                                <li>
+                                    <a href="{{route('dashboard.home')}}" title="Área admnistrativa">Área admnistrativa</a>
+                                </li>
                             </ul>
                         </div>
                     </div>

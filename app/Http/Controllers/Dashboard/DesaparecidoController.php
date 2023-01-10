@@ -13,6 +13,7 @@ use Intervention\Image\Facades\Image;
 
 class DesaparecidoController extends Controller
 {
+    // Cadastrar desaparecido
     public function cadastrar(Request $request) {
         $data = $request->validate([
             "nome" => ["required", "string", "min:3", "max:50"],
@@ -23,10 +24,12 @@ class DesaparecidoController extends Controller
             "user_id" => ["required", "integer", "min:1", "exists:users,id"]
         ]);
 
+        // Criar a pasta desaparecidos se não existir em public
         if(file_exists("desaparecidos") == false) {
             mkdir("desaparecidos");
         }
 
+        // Receber o nome original da imagem
         $img = $data['imagem'];
 
         // Gerar nome
@@ -43,7 +46,7 @@ class DesaparecidoController extends Controller
         });
         $imagem->save("desaparecidos/{$nome_final}");
 
-        // Cadastrar os dados obrigarorios
+        // Cadastrar os campos obrigarorios
         $desaparecido = Desaparecido::create([
             "nome" => $data['nome'],
             "data_nascimento" => $data['data_nascimento'],
@@ -53,7 +56,7 @@ class DesaparecidoController extends Controller
             "user_id" => $data['user_id']
         ]);
 
-        // Campos não obrigatorios
+        // Cadastrar campos não obrigatorios
 
         // Email
         if($request->filled('email')) {
@@ -133,6 +136,7 @@ class DesaparecidoController extends Controller
         
     }
 
+    // Deletar desaparecido
     public function deletar(Request $request) {
         $data = $request->validate([
             "id" => ["required", "integer", "min:1", "exists:desaparecido,id"]
@@ -140,22 +144,22 @@ class DesaparecidoController extends Controller
 
         $desaparecido = Desaparecido::find($data['id']);
 
-        // Responsavel telemovel 1
+        // Deletar responsavel telemovel 1
         ResponsavelTelemovel::where('id', $desaparecido->responsavel_telemovel1_id)
             ->delete();
 
 
-        // Responsavel telemovel 2
+        // Deletar responsavel telemovel 2
         ResponsavelTelemovel::where('id', $desaparecido->responsavel_telemovel2_id)
             ->delete();
 
-        // Descrição
+        // Deletar descrição
         Descricao::where('desaparecido_id', $desaparecido->id)->delete();
 
-        // Comentarios
+        // Deletar comentarios
         Comentario::where('desaparecido_id', $desaparecido->id)->delete();
 
-        // Apagar a imagem
+        // Deletar a imagem
         unlink("desaparecidos/{$desaparecido->imagem}");
 
         $desaparecido->delete();
@@ -164,6 +168,7 @@ class DesaparecidoController extends Controller
             ->with('sucesso', 'Desaparecido deletado com sucesso');
     }
 
+    // Editar desaparecido
     public function editar(Request $request) {
         $data = $request->validate([
             "id" => ["required", "integer", "min:1", "exists:desaparecido,id"],
@@ -171,15 +176,18 @@ class DesaparecidoController extends Controller
             "data_nascimento" => ["required", "date", "before:tomorrow"],
             "comuna_id" => ["required", "integer", "min:1", "exists:comuna,id"],
             "status" => ["required", "boolean"],
-            "aprovado" => ["required", "boolean"]
+            "aprovado" => ["boolean"]
         ]);
 
+        // Preencher os dados obrigatórios
         $desaparecido = Desaparecido::find($data['id']);
         $desaparecido->nome = $data['nome'];
         $desaparecido->data_nascimento = $data['data_nascimento'];
         $desaparecido->comuna_id = $data['comuna_id'];
         $desaparecido->status = $data['status'];
-        $desaparecido->aprovado = $data['aprovado'];
+        $desaparecido->aprovado = $data['aprovado'] ?? false;
+
+        // Preencher dados não obrigatorios
 
         // Imagem
         if($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
@@ -187,6 +195,7 @@ class DesaparecidoController extends Controller
                 "imagem" => ["required", "file", "image"]
             ]);
 
+            // Pegar o nome original da imagem
             $img = $imagem['imagem'];
 
             // Gerar nome
@@ -203,9 +212,10 @@ class DesaparecidoController extends Controller
             });
             $imagem->save("desaparecidos/{$nome_final}");
 
-            // apagar a imagem
+            // Deletar a imagem
             unlink("desaparecidos/{$desaparecido->imagem}");
 
+            // Trocar o nome da imagem no banco de dados
             $desaparecido->imagem = $nome_final;
         }
 
@@ -224,6 +234,7 @@ class DesaparecidoController extends Controller
         // Telemovel 1
         if($request->filled('telemovel1')) {
 
+            // Se o responsavel_telemovel1_id for nulo, passa diretamente para dentro do if
             if(is_null($desaparecido->responsavel_telemovel1_id)) {
                 goto pulaValidacaoTelemovel1;
             }
@@ -305,15 +316,14 @@ class DesaparecidoController extends Controller
         
     }
 
+    // Aceitar pedido de cadastro de desaparecido
     public function aceitarPedido(Request $request) {
         $data = $request->validate([
             "id" => ["required", "integer", "min:1", "exists:desaparecido,id"]
         ]);
 
         $desaparecido = Desaparecido::find($data['id']);
-
         $desaparecido->aprovado = true;
-
         $desaparecido->save();
 
         return redirect()->back()

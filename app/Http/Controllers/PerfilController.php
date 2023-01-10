@@ -9,8 +9,9 @@ use Illuminate\Http\Request;
 
 class PerfilController extends Controller
 {
+    // Perfil view
     public function index($id) {
-        $desaparecido = Desaparecido::where('aprovado', '1')
+        $desaparecido = Desaparecido::where('aprovado', true)
             ->where('id', $id)
             ->first();
 
@@ -24,7 +25,7 @@ class PerfilController extends Controller
         $idade = $carbon->diff()->y;
 
         // Desaparecidos na mesma zona
-        $mesma_zona = Desaparecido::where('aprovado', '1')
+        $mesma_zona = Desaparecido::where('aprovado', true)
             ->where('comuna_id', $desaparecido->comuna_id)
             ->where('id', '!=', $desaparecido->id)
             ->limit(5)
@@ -38,6 +39,7 @@ class PerfilController extends Controller
         ]);
     }
 
+    // Visualizar perfil
     public function visualizar(Request $request) {
         $data = $request->validate([
             "id" => ["required", "integer", "min:1", "exists:desaparecido,id"]
@@ -51,6 +53,7 @@ class PerfilController extends Controller
             ->with('sucesso', 'Visualizado com sucesso');
     }
 
+    // Comentar perfil
     public function comentar(Request $request) {
         $data = $request->validate([
             "desaparecido_id" => ["required", "integer", "min:1", "exists:desaparecido,id"],
@@ -68,6 +71,7 @@ class PerfilController extends Controller
             ->with('sucesso', 'Comentado com sucesso');
     }
 
+    // Deletar comentário
     public function deletarComentario(Request $request) {
         $data = $request->validate([
             "id" => ["required", "integer", "min:1", "exists:comentario,id"]

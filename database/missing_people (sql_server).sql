@@ -1,70 +1,161 @@
--- phpMyAdmin SQL Dump
--- version 5.1.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Tempo de geração: 30-Maio-2022 às 03:10
--- Versão do servidor: 10.4.20-MariaDB
--- versão do PHP: 8.0.9
+USE [master];
+GO
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
+DROP DATABASE [MISSING_PEOPLE];
+GO
 
+CREATE DATABASE [MISSING_PEOPLE];
+GO
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+USE [MISSING_PEOPLE];
+GO
 
---
--- Banco de dados: `missing_people`
---
+CREATE TABLE [users] (
+	[id] BIGINT NOT NULL,
+	[nome] VARCHAR(50) NOT NULL,
+	[email] VARCHAR(100) NOT NULL UNIQUE,
+	[telemovel] INT NOT NULL UNIQUE,
+	[data_nascimento] DATETIME2 NOT NULL,
+	[password] VARCHAR(255) NOT NULL,
+	[admin] TINYINT DEFAULT 0 NOT NULL,
+	[active] TINYINT DEFAULT 0 NOT NULL,
+	[created_at] DATETIME2 DEFAULT GETDATE(),
+	[updated_at] DATETIME2 DEFAULT GETDATE(),
+	CONSTRAINT PK_users_id PRIMARY KEY([id])
+);
+GO
 
--- --------------------------------------------------------
+CREATE TABLE [desaparecido] (
+	[id] BIGINT NOT NULL,
+	[nome] VARCHAR(50) NOT NULL,
+	[data_nascimento] DATETIME2,
+	[imagem] VARCHAR(255) DEFAULT 'default.jpg' NOT NULL,
+	[aprovado] TINYINT DEFAULT 0 NOT NULL,
+	[status] TINYINT DEFAULT 0 NOT NULL,
+	[visualizacoes_qtd] BIGINT DEFAULT 0 NOT NULL,
+	[comuna_id] BIGINT NOT NULL,
+	[user_id] BIGINT NOT NULL,
+	[responsavel_telemovel1_id] BIGINT UNIQUE,
+	[responsavel_telemovel2_id] BIGINT UNIQUE,
+	[email] VARCHAR(100),
+	[altura] SMALLINT,
+	[peso] FLOAT,
+	[created_at] DATETIME2 DEFAULT GETDATE(),
+	[updated_at] DATETIME2 DEFAULT GETDATE(),
+	CONSTRAINT PK_desaparecido_id PRIMARY KEY ([id])
+);
+GO
 
---
--- Estrutura da tabela `comentario`
---
+CREATE PROCEDURE JoinDesaparecidoUser
+AS
+(
+    SELECT D.nome, CONVERT(DATE, D.data_nascimento) AS DT, COUNT(*), U.nome FROM [desaparecido] D
+    LEFT OUTER JOIN [users] U ON D.user_id = U.id
+    WHERE U.admin = 1
+    GROUP BY D.nome, D.data_nascimento, U.nome
+);
+GO
+EXEC JoinDesaparecidoUser;
+GO
 
-CREATE TABLE `comentario` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `comentario` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `desaparecido_id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE [comentario] (
+	[id] BIGINT NOT NULL,
+	[comentario] TEXT NOT NULL,
+	[desaparecido_id] BIGINT NOT NULL,
+	[user_id] BIGINT NOT NULL,
+	[created_at] DATETIME2 DEFAULT GETDATE(),
+	[updated_at] DATETIME2 DEFAULT GETDATE(),
+	CONSTRAINT PK_comentario_id PRIMARY KEY ([id])
+);
+GO
 
---
--- Extraindo dados da tabela `comentario`
---
+CREATE TABLE [descricao] (
+	[id] BIGINT NOT NULL,
+	[desaparecido_id] BIGINT NOT NULL,
+	[descricao] TEXT NOT NULL,
+	[created_at] DATETIME2 DEFAULT GETDATE(),
+	[updated_at] DATETIME2 DEFAULT GETDATE(),
+	CONSTRAINT PK_descricao_id PRIMARY KEY([id])
+);
+GO
 
-INSERT INTO `comentario` (`id`, `comentario`, `desaparecido_id`, `user_id`, `created_at`, `updated_at`) VALUES
+CREATE TABLE [newsletter] (
+	[id] BIGINT NOT NULL,
+	[email] VARCHAR(100) NOT NULL UNIQUE,
+	[created_at] DATETIME2 DEFAULT GETDATE(),
+	[updated_at] DATETIME2 DEFAULT GETDATE(),
+	CONSTRAINT PK_newsletter_id PRIMARY KEY ([id])
+);
+GO
+
+CREATE TABLE [responsavel_telemovel] (
+	[id] BIGINT NOT NULL,
+	[telemovel] INT NOT NULL,
+	[created_at] DATETIME2 DEFAULT GETDATE(),
+	[updated_at] DATETIME2 DEFAULT GETDATE(),
+	CONSTRAINT PK_responsavel_telemovel_id PRIMARY KEY ([id])
+);
+GO
+
+CREATE TABLE [comuna] (
+	[id] BIGINT NOT NULL,
+	[comuna] VARCHAR(50) NOT NULL UNIQUE,
+	[created_at] DATETIME2 DEFAULT GETDATE(),
+	[updated_at] DATETIME2 DEFAULT GETDATE(),
+	CONSTRAINT PK_comuna_id PRIMARY KEY([id])
+);
+GO
+
+-- Chaves primárias
+/* Desaparecido */
+ALTER TABLE [desaparecido]
+	ADD CONSTRAINT FK_responsavel_telemovel1_id FOREIGN KEY ([responsavel_telemovel1_id]) REFERENCES [responsavel_telemovel]([id]);
+GO
+ALTER TABLE [desaparecido]
+	ADD CONSTRAINT FK_responsavel_telemovel2_id FOREIGN KEY ([responsavel_telemovel2_id]) REFERENCES [responsavel_telemovel]([id]);
+GO
+ALTER TABLE [desaparecido]
+	ADD CONSTRAINT FK_comuna_id FOREIGN KEY ([comuna_id]) REFERENCES [comuna]([id]);
+GO
+ALTER TABLE [desaparecido]
+	ADD CONSTRAINT FK_desaparecido_user_id FOREIGN KEY ([user_id]) REFERENCES [users]([id]);
+GO
+	
+/* Comentario */
+ALTER TABLE [comentario]
+	ADD CONSTRAINT FK_desaparecido_id FOREIGN KEY ([desaparecido_id]) REFERENCES [desaparecido]([id]);
+GO
+ALTER TABLE [comentario]
+	ADD CONSTRAINT FK_comentario_user_id FOREIGN KEY ([user_id]) REFERENCES [users]([id]);
+GO
+
+/* Descricao */
+ALTER TABLE [descricao]
+	ADD CONSTRAINT FK_descricao_id FOREIGN KEY ([desaparecido_id]) REFERENCES [desaparecido]([id]);
+GO
+
+/**********************************************
+* Comentário
+*
+***********************************************/
+
+ALTER TABLE [comentario] NOCHECK CONSTRAINT FK_desaparecido_id;
+ALTER TABLE [comentario] NOCHECK CONSTRAINT FK_comentario_user_id;
+INSERT INTO comentario (id, comentario, desaparecido_id, user_id, created_at, updated_at) VALUES
 (1, 'Mostarda quente', 2, 1, '2022-04-01 23:21:49', '2022-04-01 23:21:49'),
-(2, 'Maggot\'s fallen is something awesome. lol', 35, 1, '2022-04-28 00:04:07', '2022-04-28 00:04:07'),
+(2, 'Maggots fallen is something awesome. lol', 35, 1, '2022-04-28 00:04:07', '2022-04-28 00:04:07'),
 (3, 'Oh, que triste que ele desapareceu', 35, 1, '2022-04-28 00:04:28', '2022-04-28 00:04:28'),
 (6, 'Nossa, que delicia!!!', 87, 1, '2022-05-09 02:05:38', '2022-05-09 02:05:38'),
 (11, 'Olá', 46, 1, '2022-05-29 23:13:03', '2022-05-29 23:13:03');
+ALTER TABLE [comentario] CHECK CONSTRAINT FK_desaparecido_id;
+ALTER TABLE [comentario] CHECK CONSTRAINT FK_comentario_user_id;
+GO
 
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `comuna`
---
-
-CREATE TABLE `comuna` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `comuna` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Extraindo dados da tabela `comuna`
---
-
-INSERT INTO `comuna` (`id`, `comuna`, `created_at`, `updated_at`) VALUES
+/**********************************************
+* Comuna
+*
+***********************************************/
+INSERT INTO comuna (id, comuna, created_at, updated_at) VALUES
 (1, 'Desconhecido', '2022-03-14 05:46:34', '2022-03-14 05:46:34'),
 (2, 'Benfica', '2022-03-14 05:46:45', '2022-03-14 05:46:45'),
 (3, 'Camama', '2022-03-14 05:46:55', '2022-03-14 05:46:55'),
@@ -72,37 +163,17 @@ INSERT INTO `comuna` (`id`, `comuna`, `created_at`, `updated_at`) VALUES
 (5, 'Lar do Patriota', '2022-03-14 05:47:45', '2022-03-14 05:47:45'),
 (6, 'Talatona', '2022-03-14 05:47:58', '2022-03-14 05:47:58'),
 (7, 'Cidade Universitária', '2022-03-14 05:48:34', '2022-03-14 05:48:34');
+GO
 
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `desaparecido`
---
-
-CREATE TABLE `desaparecido` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `nome` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `data_nascimento` date NOT NULL,
-  `imagem` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `aprovado` tinyint(1) NOT NULL DEFAULT 0,
-  `status` tinyint(1) NOT NULL DEFAULT 0,
-  `vizualizacoes_qtd` bigint(20) NOT NULL DEFAULT 0,
-  `comuna_id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `responsavel_telemovel1_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `responsavel_telemovel2_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `email` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `altura` int(11) DEFAULT NULL,
-  `peso` int(11) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Extraindo dados da tabela `desaparecido`
---
-
-INSERT INTO `desaparecido` (`id`, `nome`, `data_nascimento`, `imagem`, `aprovado`, `status`, `vizualizacoes_qtd`, `comuna_id`, `user_id`, `responsavel_telemovel1_id`, `responsavel_telemovel2_id`, `email`, `altura`, `peso`, `created_at`, `updated_at`) VALUES
+/**********************************************
+* Desaparecido
+*
+***********************************************/
+ALTER TABLE [desaparecido] NOCHECK CONSTRAINT FK_desaparecido_user_id;
+ALTER TABLE [desaparecido] NOCHECK CONSTRAINT FK_comuna_id;
+ALTER TABLE [desaparecido] NOCHECK CONSTRAINT FK_responsavel_telemovel1_id;
+ALTER TABLE [desaparecido] NOCHECK CONSTRAINT FK_responsavel_telemovel2_id;
+INSERT INTO desaparecido (id, nome, data_nascimento, imagem, aprovado, status, [visualizacoes_qtd], comuna_id, user_id, responsavel_telemovel1_id, responsavel_telemovel2_id, email, altura, peso, created_at, updated_at) VALUES
 (1, 'Sténio Anabel', '2021-05-12', '265246b8ba5ba22292dd3f22789b3d6a.jpg', 1, 0, 1507, 7, 2, 1, 2, 'SténioAnabel4975@hotmail.com', 192, 282, '2022-05-16 21:36:35', '2022-05-16 21:36:35'),
 (2, 'Luis Carla', '1990-05-27', 'c990972f74f719b46b7e0c17ac04004f.jpg', 1, 0, 3987, 7, 3, 3, 4, 'LuisCarla1094@hotmail.com', 158, 144, '2022-05-16 21:36:38', '2022-05-16 21:36:38'),
 (3, 'Adriana Erivandro', '1978-05-07', 'af1c17a87f3605efe58bb6846c32c2b7.jpg', 1, 0, 2659, 7, 3, 5, 6, 'AdrianaErivandro1667@gmail.com', 185, 30, '2022-05-16 21:36:39', '2022-05-16 21:36:39'),
@@ -153,26 +224,17 @@ INSERT INTO `desaparecido` (`id`, `nome`, `data_nascimento`, `imagem`, `aprovado
 (48, 'Bruno Joana', '2021-05-25', 'e1f30084a2abee5be8809da1019afcf3.jpg', 1, 0, 2941, 2, 2, 95, 96, 'BrunoJoana3305@yoopmail.com', 197, 189, '2022-05-16 21:39:12', '2022-05-16 21:39:12'),
 (49, 'Milton Helga', '2009-05-12', 'f6a31f570b3bede9c7da0010d280e8ea.jpg', 1, 0, 1146, 6, 2, 97, 98, 'MiltonHelga4516@hotmail.com', 150, 274, '2022-05-16 21:39:15', '2022-05-16 21:39:16'),
 (50, 'Lee Elisa', '1981-05-02', 'bb96e7d286dfcb26cd9f9da1ca4beca4.jpg', 1, 0, 2751, 7, 3, 99, 100, 'LeeElisa1587@hotmail.com', 191, 268, '2022-05-16 21:39:18', '2022-05-21 05:16:53');
+ALTER TABLE [desaparecido] CHECK CONSTRAINT FK_desaparecido_user_id;
+ALTER TABLE [desaparecido] CHECK CONSTRAINT FK_comuna_id;
+ALTER TABLE [desaparecido] CHECK CONSTRAINT FK_responsavel_telemovel1_id;
+ALTER TABLE [desaparecido] CHECK CONSTRAINT FK_responsavel_telemovel2_id;
+GO
 
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `descricao`
---
-
-CREATE TABLE `descricao` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `desaparecido_id` bigint(20) UNSIGNED NOT NULL,
-  `descricao` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Extraindo dados da tabela `descricao`
---
-
-INSERT INTO `descricao` (`id`, `desaparecido_id`, `descricao`, `created_at`, `updated_at`) VALUES
+/**********************************************
+* DESCRIÇÃO
+*
+***********************************************/
+INSERT INTO descricao (id, desaparecido_id, [descricao], created_at, updated_at) VALUES
 (7, 8, 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores architecto pariatur suscipit mollitia dolorum, voluptate nemo dolorem excepturi repellendus expedita illo eos molestias cum aperiam est, non odio iure totam.Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet asperiores dignissimos quisquam doloremque officia ullam totam ex, saepe quibusdam hic harum perferendis ratione exercitationem numquam quam rerum adipisci? Minima, molestias?Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores architecto pariatur suscipit mollitia dolorum, voluptate nemo dolorem excepturi repellendus expedita illo eos molestias cum aperiam est, non odio iure totam.Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis id dignissimos, amet repudiandae sapiente fuga labore deleniti ea quasi placeat laborum delectus, quidem similique debitis? Eveniet iste repudiandae voluptas! Eveniet?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus nisi nobis corporis officiis sequi, aliquam eum consequuntur aspernatur suscipit, est nam laborum soluta delectus quasi cum illum neque placeat eligendi.', '2022-03-21 04:29:25', '2022-03-21 04:29:25'),
 (8, 9, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, nam vero. Sit repudiandae non cum in impedit excepturi eveniet repellat explicabo? Magni vitae nemo harum dolor dolorum libero voluptate deleniti.Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores architecto pariatur suscipit mollitia dolorum, voluptate nemo dolorem excepturi repellendus expedita illo eos molestias cum aperiam est, non odio iure totam.Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet asperiores dignissimos quisquam doloremque officia ullam totam ex, saepe quibusdam hic harum perferendis ratione exercitationem numquam quam rerum adipisci? Minima, molestias?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus nisi nobis corporis officiis sequi, aliquam eum consequuntur aspernatur suscipit, est nam laborum soluta delectus quasi cum illum neque placeat eligendi.Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, nam vero. Sit repudiandae non cum in impedit excepturi eveniet repellat explicabo? Magni vitae nemo harum dolor dolorum libero voluptate deleniti.', '2022-03-21 04:29:30', '2022-03-21 04:29:30'),
 (9, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet asperiores dignissimos quisquam doloremque officia ullam totam ex, saepe quibusdam hic harum perferendis ratione exercitationem numquam quam rerum adipisci? Minima, molestias?Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis id dignissimos, amet repudiandae sapiente fuga labore deleniti ea quasi placeat laborum delectus, quidem similique debitis? Eveniet iste repudiandae voluptas! Eveniet?Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis id dignissimos, amet repudiandae sapiente fuga labore deleniti ea quasi placeat laborum delectus, quidem similique debitis? Eveniet iste repudiandae voluptas! Eveniet?Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis id dignissimos, amet repudiandae sapiente fuga labore deleniti ea quasi placeat laborum delectus, quidem similique debitis? Eveniet iste repudiandae voluptas! Eveniet?Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, nam vero. Sit repudiandae non cum in impedit excepturi eveniet repellat explicabo? Magni vitae nemo harum dolor dolorum libero voluptate deleniti.', '2022-03-21 04:29:32', '2022-03-21 04:29:32'),
@@ -215,132 +277,16 @@ INSERT INTO `descricao` (`id`, `desaparecido_id`, `descricao`, `created_at`, `up
 (46, 47, 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores architecto pariatur suscipit mollitia dolorum, voluptate nemo dolorem excepturi repellendus expedita illo eos molestias cum aperiam est, non odio iure totam.Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores architecto pariatur suscipit mollitia dolorum, voluptate nemo dolorem excepturi repellendus expedita illo eos molestias cum aperiam est, non odio iure totam.Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores architecto pariatur suscipit mollitia dolorum, voluptate nemo dolorem excepturi repellendus expedita illo eos molestias cum aperiam est, non odio iure totam.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus nisi nobis corporis officiis sequi, aliquam eum consequuntur aspernatur suscipit, est nam laborum soluta delectus quasi cum illum neque placeat eligendi.Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, nam vero. Sit repudiandae non cum in impedit excepturi eveniet repellat explicabo? Magni vitae nemo harum dolor dolorum libero voluptate deleniti.', '2022-03-21 04:30:37', '2022-03-21 04:30:37'),
 (47, 48, 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores architecto pariatur suscipit mollitia dolorum, voluptate nemo dolorem excepturi repellendus expedita illo eos molestias cum aperiam est, non odio iure totam.Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis id dignissimos, amet repudiandae sapiente fuga labore deleniti ea quasi placeat laborum delectus, quidem similique debitis? Eveniet iste repudiandae voluptas! Eveniet?Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores architecto pariatur suscipit mollitia dolorum, voluptate nemo dolorem excepturi repellendus expedita illo eos molestias cum aperiam est, non odio iure totam.Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis id dignissimos, amet repudiandae sapiente fuga labore deleniti ea quasi placeat laborum delectus, quidem similique debitis? Eveniet iste repudiandae voluptas! Eveniet?Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis id dignissimos, amet repudiandae sapiente fuga labore deleniti ea quasi placeat laborum delectus, quidem similique debitis? Eveniet iste repudiandae voluptas! Eveniet?', '2022-03-21 04:30:38', '2022-03-21 04:30:38'),
 (48, 49, 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus nisi nobis corporis officiis sequi, aliquam eum consequuntur aspernatur suscipit, est nam laborum soluta delectus quasi cum illum neque placeat eligendi.Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet asperiores dignissimos quisquam doloremque officia ullam totam ex, saepe quibusdam hic harum perferendis ratione exercitationem numquam quam rerum adipisci? Minima, molestias?Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis id dignissimos, amet repudiandae sapiente fuga labore deleniti ea quasi placeat laborum delectus, quidem similique debitis? Eveniet iste repudiandae voluptas! Eveniet?Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet asperiores dignissimos quisquam doloremque officia ullam totam ex, saepe quibusdam hic harum perferendis ratione exercitationem numquam quam rerum adipisci? Minima, molestias?Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores architecto pariatur suscipit mollitia dolorum, voluptate nemo dolorem excepturi repellendus expedita illo eos molestias cum aperiam est, non odio iure totam.', '2022-03-21 04:30:39', '2022-03-21 04:30:39');
-INSERT INTO `descricao` (`id`, `desaparecido_id`, `descricao`, `created_at`, `updated_at`) VALUES
+INSERT INTO descricao (id, desaparecido_id, descricao, created_at, updated_at) VALUES
 (312, 50, 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores architecto pariatur suscipit mollitia dolorum, voluptate nemo dolorem excepturi repellendus expedita illo eos molestias cum aperiam est, non odio iure totam.Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores architecto pariatur suscipit mollitia dolorum, voluptate nemo dolorem excepturi repellendus expedita illo eos molestias cum aperiam est, non odio iure totam.Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, nam vero. Sit repudiandae non cum in impedit excepturi eveniet repellat explicabo? Magni vitae nemo harum dolor dolorum libero voluptate deleniti.Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis id dignissimos, amet repudiandae sapiente fuga labore deleniti ea quasi placeat laborum delectus, quidem similique debitis? Eveniet iste repudiandae voluptas! Eveniet?Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis id dignissimos, amet repudiandae sapiente fuga labore deleniti ea quasi placeat laborum delectus, quidem similique debitis? Eveniet iste repudiandae voluptas! Eveniet?', '2022-05-30 03:43:56', '2022-05-30 03:43:56');
+GO
 
--- --------------------------------------------------------
+/**********************************************
+* RESPONSAVEL TELEMOVEL
+*
+***********************************************/
 
---
--- Estrutura da tabela `failed_jobs`
---
-
-CREATE TABLE `failed_jobs` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `migrations`
---
-
-CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Extraindo dados da tabela `migrations`
---
-
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_000000_create_users_table', 1),
-(2, '2014_10_12_100000_create_password_resets_table', 1),
-(3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(5, '2022_02_06_004843_create_comuna', 1),
-(6, '2022_02_06_005200_create_newsletter', 1),
-(7, '2022_02_06_005437_create_assunto_mensagem', 1),
-(8, '2022_02_06_005558_create_mensagem', 1),
-(9, '2022_02_06_011220_create_responsavel_telemovel', 1),
-(10, '2022_02_06_011327_create_desaparecido', 1),
-(11, '2022_02_06_012524_create_descricao', 1),
-(12, '2022_02_06_012710_create_comentario', 1);
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `newsletter`
---
-
-CREATE TABLE `newsletter` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Extraindo dados da tabela `newsletter`
---
-
-INSERT INTO `newsletter` (`id`, `email`, `created_at`, `updated_at`) VALUES
-(1, 'hipopotamovegetariana@gmail.com', '2022-05-11 09:43:12', '2022-05-11 09:43:12');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `password_resets`
---
-
-CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Extraindo dados da tabela `password_resets`
---
-
-INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
-('teste@gmail.com', '$2y$10$qRVKU6sTGW85.T37shPtuOUu2hPO2CDMQeCYaC2ljYWQFU3IRh.ay', '2022-05-21 19:53:50'),
-('admin@gmail.com', '$2y$10$CVQdRFILfCVfXFW8j7taHONkNTeG7/qCeBjYIXJ6RH.hbwEZOgwf.', '2022-05-29 19:31:11'),
-('mastervideo321@gmail.com', '$2y$10$mubq0kO.ivLQa23zOEq.2eFTUH.DKBjjijjWbzOGT7PKmlhzdkNz2', '2022-05-29 21:58:55');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `personal_access_tokens`
---
-
-CREATE TABLE `personal_access_tokens` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `last_used_at` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `responsavel_telemovel`
---
-
-CREATE TABLE `responsavel_telemovel` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `telemovel` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Extraindo dados da tabela `responsavel_telemovel`
---
-
-INSERT INTO `responsavel_telemovel` (`id`, `telemovel`, `created_at`, `updated_at`) VALUES
+INSERT INTO responsavel_telemovel (id, telemovel, created_at, updated_at) VALUES
 (1, 908235888, '2022-05-16 21:36:35', '2022-05-16 21:36:35'),
 (2, 982604795, '2022-05-16 21:36:35', '2022-05-16 21:36:35'),
 (3, 923858313, '2022-05-16 21:36:38', '2022-05-16 21:36:38'),
@@ -441,209 +387,17 @@ INSERT INTO `responsavel_telemovel` (`id`, `telemovel`, `created_at`, `updated_a
 (98, 954682976, '2022-05-16 21:39:16', '2022-05-16 21:39:16'),
 (99, 992102740, '2022-05-16 21:39:18', '2022-05-16 21:39:18'),
 (100, 931988142, '2022-05-16 21:39:18', '2022-05-16 21:39:18');
+GO
 
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `users`
---
-
-CREATE TABLE `users` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `nome` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `telemovel` int(11) NOT NULL,
-  `data_nascimento` date NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `admin` tinyint(1) NOT NULL,
-  `active` tinyint(1) DEFAULT 1,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Extraindo dados da tabela `users`
---
-
-INSERT INTO `users` (`id`, `nome`, `email`, `telemovel`, `data_nascimento`, `password`, `admin`, `active`, `created_at`, `updated_at`) VALUES
+/**********************************************
+* USERS
+*
+***********************************************/
+INSERT INTO users (id, nome, email, telemovel, data_nascimento, password, admin, active, created_at, updated_at) VALUES
 (1, 'Admin', 'admin@gmail.com', 947991792, '2022-03-02', '$2y$10$VEzfl0ysICQnKydoAeUfKur0u0jJgTMdFD3senLN2V25GVMJZ/dD6', 1, 1, '2022-03-14 05:46:14', '2022-05-21 19:39:02'),
 (2, 'Igor Nzaji', 'igornzaji@gmail.com', 945671234, '2022-03-02', '$2y$10$gNy2FvBA5LH6qpig/JXTxeFtg.sPKo2EMW966grxoT5.5NUTFI03i', 0, 1, '2022-03-14 05:52:49', '2022-03-14 05:52:49'),
 (3, 'Ruben Sousa', 'ruben@gmail.com', 998675512, '2011-01-04', '$2y$10$GbHk2dWrMea/B/scfwHMr.i0hiVxpYBo0FK58WzOb/wuerQZdxc1m', 0, 0, '2022-03-14 05:54:14', '2022-05-08 19:28:53'),
 (4, 'Douglas Costa', 'douglas@gmail.com', 986451344, '2019-06-04', '$2y$10$cQia/2DX3iLChbe58FwktuFymhFIPu.iwfDUwObuSV9YG5ri4M97O', 0, 1, '2022-04-23 19:48:21', '2022-04-23 19:48:21'),
 (5, 'Teste', 'teste@gmail.com', 986651243, '2022-05-04', '$2y$10$LpBxXUfWhylq2c7CSl6lrOYO.7JKSUMuYpcGUgE5RqtdF9Ty8tyh.', 0, 1, '2022-05-19 07:35:00', '2022-05-19 07:35:00'),
 (6, 'Master Video', 'mastervideo321@gmail.com', 900456665, '2021-06-07', '$2y$10$Pg8/bpDobTiPGqXlOA8KwO9Ury/wHf.v0XYzIFinfUdvSbCTtoC7e', 0, 1, '2022-05-21 19:54:55', '2022-05-30 03:52:17');
-
---
--- Índices para tabelas despejadas
---
-
---
--- Índices para tabela `comentario`
---
-ALTER TABLE `comentario`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `comentario_desaparecido_id_foreign` (`desaparecido_id`),
-  ADD KEY `comentario_user_id_foreign` (`user_id`);
-
---
--- Índices para tabela `comuna`
---
-ALTER TABLE `comuna`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `comuna_comuna_unique` (`comuna`);
-
---
--- Índices para tabela `desaparecido`
---
-ALTER TABLE `desaparecido`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `desaparecido_email_unique` (`email`),
-  ADD KEY `desaparecido_comuna_id_foreign` (`comuna_id`),
-  ADD KEY `desaparecido_user_id_foreign` (`user_id`),
-  ADD KEY `desaparecido_responsavel_telemovel1_id_foreign` (`responsavel_telemovel1_id`),
-  ADD KEY `desaparecido_responsavel_telemovel2_id_foreign` (`responsavel_telemovel2_id`);
-
---
--- Índices para tabela `descricao`
---
-ALTER TABLE `descricao`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `descricao_desaparecido_id_foreign` (`desaparecido_id`);
-
---
--- Índices para tabela `failed_jobs`
---
-ALTER TABLE `failed_jobs`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
-
---
--- Índices para tabela `migrations`
---
-ALTER TABLE `migrations`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices para tabela `newsletter`
---
-ALTER TABLE `newsletter`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `newsletter_email_unique` (`email`);
-
---
--- Índices para tabela `password_resets`
---
-ALTER TABLE `password_resets`
-  ADD KEY `password_resets_email_index` (`email`);
-
---
--- Índices para tabela `personal_access_tokens`
---
-ALTER TABLE `personal_access_tokens`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
-  ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
-
---
--- Índices para tabela `responsavel_telemovel`
---
-ALTER TABLE `responsavel_telemovel`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `responsavel_telemovel_telemovel_unique` (`telemovel`);
-
---
--- Índices para tabela `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`),
-  ADD UNIQUE KEY `users_telemovel_unique` (`telemovel`);
-
---
--- AUTO_INCREMENT de tabelas despejadas
---
-
---
--- AUTO_INCREMENT de tabela `comentario`
---
-ALTER TABLE `comentario`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
---
--- AUTO_INCREMENT de tabela `comuna`
---
-ALTER TABLE `comuna`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT de tabela `desaparecido`
---
-ALTER TABLE `desaparecido`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
-
---
--- AUTO_INCREMENT de tabela `descricao`
---
-ALTER TABLE `descricao`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=313;
-
---
--- AUTO_INCREMENT de tabela `failed_jobs`
---
-ALTER TABLE `failed_jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de tabela `migrations`
---
-ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT de tabela `newsletter`
---
-ALTER TABLE `newsletter`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de tabela `personal_access_tokens`
---
-ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de tabela `responsavel_telemovel`
---
-ALTER TABLE `responsavel_telemovel`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
-
---
--- AUTO_INCREMENT de tabela `users`
---
-ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- Restrições para despejos de tabelas
---
-
---
--- Limitadores para a tabela `comentario`
---
-ALTER TABLE `comentario`
-  ADD CONSTRAINT `comentario_desaparecido_id_foreign` FOREIGN KEY (`desaparecido_id`) REFERENCES `desaparecido` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `comentario_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
-
---
--- Limitadores para a tabela `desaparecido`
---
-ALTER TABLE `desaparecido`
-  ADD CONSTRAINT `desaparecido_comuna_id_foreign` FOREIGN KEY (`comuna_id`) REFERENCES `comuna` (`id`),
-  ADD CONSTRAINT `desaparecido_responsavel_telemovel1_id_foreign` FOREIGN KEY (`responsavel_telemovel1_id`) REFERENCES `responsavel_telemovel` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `desaparecido_responsavel_telemovel2_id_foreign` FOREIGN KEY (`responsavel_telemovel2_id`) REFERENCES `responsavel_telemovel` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `desaparecido_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+GO

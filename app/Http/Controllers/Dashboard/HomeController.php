@@ -16,6 +16,7 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+    // Home view
     public function index(Request $request) {
         $comunas = Comuna::all();
 
@@ -23,12 +24,14 @@ class HomeController extends Controller
         $campo = $request->query('campo', '');
 
         if(Auth::user()->admin == true) {
+            // Pega todos os desaparecidos
             $desaparecidos_query = Desaparecido::where('id', 'like', '%' . $campo . '%')
                 ->orWhere('nome', 'like', '%' . $campo . '%')
                 ->orderBy('created_at', 'desc')
                 ->paginate(10);
         } else {
             $desaparecidos_query = Desaparecido::where('id', 'like', '%' . $campo . '%')
+                // Pega os desaparecidos cadastrado pelo respetivo usuario
                 ->where('user_id', Auth::user()->id)
                 ->orWhere('nome', 'like', '%' . $campo . '%')
                 ->where('user_id', Auth::user()->id)
@@ -36,10 +39,7 @@ class HomeController extends Controller
                 ->paginate(10);
         }
 
-
-
-
-        // Coisas de admnistradores
+        // Operações de admnistradores
         if(Auth::user()->admin == true) {
             $desaparecidos_qtd = 0;
             $desaparecidos_menores_qtd = 0;
@@ -57,7 +57,7 @@ class HomeController extends Controller
 
                 // caso ele seja desaparecido
                 if($item->status == false) {
-                    // DEsaparecido
+                    // Desaparecido
                     $desaparecidos_qtd++;
 
                     if($idade < 18) {
@@ -85,6 +85,7 @@ class HomeController extends Controller
                 ->get();
         }
 
+        // Recuperar as queries enviadas na requisição
         $request->flash();
 
         return view('dashboard.home', [
@@ -99,7 +100,6 @@ class HomeController extends Controller
             "avistamentos" => $avistamentos ?? 0,
             "avistamentos_menores" => $avistamentos_menores ?? 0,
             "pedidos" => $pedidos ?? []
-
         ]);
     }
 }

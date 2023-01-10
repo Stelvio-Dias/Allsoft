@@ -36,7 +36,7 @@
             </a>
         </h2>
         <p>
-            {{ Str::limit($item->descricao->descricao ?? '', 231, '...') }}
+            {{ Str::limit($item->descricao->descricao ?? '(Sem descrição)', 231, '...') }}
         </p>
         <a href="{{ route('perfil', ["id" => $item->id]) }}"
             title="Ver perfil de {{ $item->nome }}"

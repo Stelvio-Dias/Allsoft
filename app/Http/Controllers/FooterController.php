@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Mail;
 
 class FooterController extends Controller
 {
+    // Newsletter action
     public function newsletter(Request $request) {
         $data = $request->validate([
             "email" => ["required", "email", "min:3", "max:100"]
@@ -23,6 +24,7 @@ class FooterController extends Controller
             ->with('sucesso', 'Newsletter assinada com sucesso');
     }
 
+    // Mensagem action
     public function mensagem(Request $request) {
         $data = $request->validate([
             "nome" => ["required", "string", "min:2", "max:50"],

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ComunaController extends Controller
 {
-    // cadastrar
+    // Cadastrar comuna
     public function cadastrar(Request $request) {
         $data = $request->validate([
             "comuna" => ["required", "string", "min:3", "max:50", "unique:comuna,comuna"]
@@ -24,7 +24,7 @@ class ComunaController extends Controller
             ->with('sucesso', 'Comuna cadastrada com sucesso');
     }
 
-    // deletar
+    // Deletar comuna
     public function deletar(Request $request) {
         $data = $request->validate([
             "id" => ["required", "integer", "min:1", "exists:comuna,id"]
@@ -45,7 +45,7 @@ class ComunaController extends Controller
 
     }
 
-    // Editar
+    // Editar comuna
     public function editar(Request $request) {
         $data = $request->validate([
             "id" => ["required", "integer", "min:1", "exists:comuna,id"],

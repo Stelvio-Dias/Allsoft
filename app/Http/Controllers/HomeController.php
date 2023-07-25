@@ -17,7 +17,7 @@ class HomeController extends Controller
         // Mais Vistos
         $mais_vistos = Desaparecido::where('aprovado', true)
             ->orderBy('vizualizacoes_qtd', 'desc')
-            ->limit(10)
+            ->limit(8)
             ->get();
 
         // Mais Antigos
